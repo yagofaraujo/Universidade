@@ -1,0 +1,42 @@
+unit uFormPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uFormCadastroBase;
+
+type
+  TformPrincipal = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastros: TMenuItem;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CadastrosClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formPrincipal: TformPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TformPrincipal.CadastrosClick(Sender: TObject);
+begin
+    if formCadastroBase = nil then
+    formCadastroBase := TformCadastroBaseCreate(Self);
+
+  formCadastroBase.Show;
+end;
+
+procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  formPrincipal := Nil;
+end;
+
+end.

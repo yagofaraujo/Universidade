@@ -1,0 +1,95 @@
+inherited formDadosBase: TformDadosBase
+  Caption = 'Dados Base'
+  WindowState = wsMaximized
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnGridBotoes: TPanel
+    Left = 544
+    Top = 0
+    Width = 91
+    Height = 258
+    Align = alRight
+    BevelOuter = bvNone
+    TabOrder = 0
+    ExplicitLeft = 550
+    ExplicitHeight = 299
+    inline frameBotoesLaterais1: TframeBotoesLaterais
+      Left = 6
+      Top = 13
+      Width = 75
+      Height = 87
+      AutoSize = True
+      TabOrder = 0
+      ExplicitLeft = 6
+      ExplicitTop = 13
+    end
+  end
+  object pcPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 544
+    Height = 258
+    ActivePage = tsGrid
+    Align = alClient
+    TabOrder = 1
+    object tsGrid: TTabSheet
+      Caption = 'tsGrid'
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 536
+        Height = 230
+        Align = alClient
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+    object tsEdits: TTabSheet
+      Caption = 'tsEdits'
+      ImageIndex = 1
+    end
+  end
+  object pnInferiorFiltro: TPanel
+    Left = 0
+    Top = 258
+    Width = 635
+    Height = 41
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+    ExplicitLeft = 232
+    ExplicitTop = 152
+    ExplicitWidth = 185
+    inline frameFiltro1: TframeFiltro
+      Left = 2
+      Top = 1
+      Width = 453
+      Height = 36
+      TabOrder = 0
+      ExplicitLeft = 2
+      ExplicitTop = 1
+      inherited lblCampos: TLabel
+        Top = 1
+        ExplicitTop = 1
+      end
+      inherited cbBusca: TComboBox
+        Items.Strings = (
+          'Teste'
+          'Teste2')
+      end
+    end
+  end
+  object qrDados: TFDQuery
+    Left = 560
+    Top = 200
+  end
+  object dsDados: TDataSource
+    Left = 560
+    Top = 248
+  end
+end

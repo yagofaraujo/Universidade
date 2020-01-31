@@ -1,0 +1,35 @@
+unit uFormCadastroBase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFormPrincipal, uFrameBotoesLaterais,
+  Vcl.ExtCtrls;
+
+type
+  TformCadastroBase = class(TformPrincipal)
+    pnGridDireito: TPanel;
+    frameBotoesLaterais: TframeBotoesLaterais;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formCadastroBase: TformCadastroBase;
+
+implementation
+
+{$R *.dfm}
+
+procedure TformCadastroBase.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  formCadastroBase := Nil;
+end;
+
+end.

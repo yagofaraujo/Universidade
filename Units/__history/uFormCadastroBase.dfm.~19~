@@ -1,0 +1,21 @@
+inherited formCadastroBase: TformCadastroBase
+  Caption = 'Cadastro Base'
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnGridBotoes: TPanel
+    Left = 496
+    Top = 0
+    Width = 139
+    Height = 299
+    Align = alRight
+    TabOrder = 0
+    inline frameBotoesLaterais1: TframeBotoesLaterais
+      Left = 0
+      Top = 0
+      Width = 75
+      Height = 87
+      AutoSize = True
+      TabOrder = 0
+    end
+  end
+end
