@@ -3,6 +3,13 @@ object DmDados: TDmDados
   Height = 150
   Width = 215
   object FDConnection1: TFDConnection
+    Params.Strings = (
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Database=C:\Projetos\Universidade\Banco de dados\DB.FDB'
+      'DriverID=FB')
+    Connected = True
+    LoginPrompt = False
     Left = 40
     Top = 24
   end

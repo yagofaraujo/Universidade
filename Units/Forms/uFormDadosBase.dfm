@@ -38,7 +38,6 @@ inherited formDadosBase: TformDadosBase
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 536
         inline frameBotoesLaterais1: TframeBotoesCrud
           Left = 9
           Top = 13
@@ -57,6 +56,15 @@ inherited formDadosBase: TformDadosBase
           inherited btnExcluir: TButton
             OnClick = frameBotoesLaterais1btnExcluirClick
           end
+        end
+        object btnSair: TButton
+          Left = 9
+          Top = 184
+          Width = 75
+          Height = 25
+          Caption = 'Sair'
+          TabOrder = 1
+          OnClick = btnSairClick
         end
       end
       object pnInferiorFiltro: TPanel
@@ -93,7 +101,6 @@ inherited formDadosBase: TformDadosBase
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 517
         inline frameInsercaoECancelamento1: TframeInsercaoECancelamento
           Left = 8
           Top = 8
@@ -121,6 +128,7 @@ inherited formDadosBase: TformDadosBase
     end
   end
   object qrDados: TFDQuery
+    Connection = DmDados.FDConnection1
     Left = 600
     Top = 248
   end

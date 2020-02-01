@@ -8,7 +8,9 @@ uses
   uFormDadosBase in 'Units\Forms\uFormDadosBase.pas' {formDadosBase},
   uFrameFiltro in 'Units\Frames\uFrameFiltro.pas' {frameFiltro: TFrame},
   uDmDados in 'Units\uDmDados.pas' {DmDados: TDataModule},
-  uFrameConfirmarInsercao in 'Units\Frames\uFrameConfirmarInsercao.pas' {frameInsercaoECancelamento: TFrame};
+  uFrameConfirmarInsercao in 'Units\Frames\uFrameConfirmarInsercao.pas' {frameInsercaoECancelamento: TFrame},
+  uFormCadastroProfessores in 'Units\Forms\uFormCadastroProfessores.pas' {formCadastroProfessores},
+  uBiblioteca in 'Units\uBiblioteca.pas';
 
 {$R *.res}
 

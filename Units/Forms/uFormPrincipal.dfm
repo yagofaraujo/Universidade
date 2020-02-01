@@ -21,7 +21,10 @@ object formPrincipal: TformPrincipal
     Top = 128
     object Cadastros: TMenuItem
       Caption = 'Cadastros'
-      OnClick = CadastrosClick
+      object Professores1: TMenuItem
+        Caption = 'Professores'
+        OnClick = Professores1Click
+      end
     end
   end
 end
