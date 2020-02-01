@@ -1,0 +1,185 @@
+unit uFormDadosBase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFormBase, uFrameBotoesCrud,
+  Vcl.ExtCtrls, Vcl.ComCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, FireDAC.Comp.DataSet, FireDAC.Comp.Client, uFrameFiltro, uDmDados,
+  uFrameConfirmarInsercao, uBiblioteca, Vcl.StdCtrls;
+
+type
+  TformDadosBase = class(TformBase)
+    pnGridBotoes: TPanel;
+    frameBotoesLaterais1: TframeBotoesCrud;
+    pcPrincipal: TPageControl;
+    pnInferiorFiltro: TPanel;
+    frameFiltro1: TframeFiltro;
+    qrDados: TFDQuery;
+    dsDados: TDataSource;
+    tsGrid: TTabSheet;
+    tsEdit: TTabSheet;
+    DBGrid1: TDBGrid;
+    pnEditBotoes: TPanel;
+    frameInsercaoECancelamento1: TframeInsercaoECancelamento;
+    btnSair: TButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure frameBotoesLaterais1btnNovoClick(Sender: TObject);
+    procedure frameBotoesLaterais1btnEditarClick(Sender: TObject);
+    procedure frameBotoesLaterais1btnExcluirClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnCancelarClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure EsconderAbas;
+    function ContinuarIncluindo : boolean;
+  protected
+    function ValidarObrigatorios: boolean; virtual;
+    procedure Filtrar; virtual; abstract;
+  public
+    { Public declarations }
+  end;
+
+var
+  formDadosBase: TformDadosBase;
+
+implementation
+
+{$R *.dfm}
+
+procedure TformDadosBase.FormShow(Sender: TObject);
+begin
+  inherited;
+  EsconderAbas;
+  qrDados.Open;
+end;
+
+procedure TformDadosBase.EsconderAbas;
+Var
+  I: Integer;
+begin
+  for I := 0 to pcPrincipal.PageCount - 1 do
+    pcPrincipal.Pages[I].TabVisible := false;
+
+  pcPrincipal.ActivePage := tsGrid;
+end;
+
+procedure TformDadosBase.frameBotoesLaterais1btnNovoClick(Sender: TObject);
+begin
+  inherited;
+  frameInsercaoECancelamento1.cbContinuarIncluindo.Enabled := true;
+  pcPrincipal.ActivePage := tsEdit;
+  qrDados.Append;
+end;
+
+procedure TformDadosBase.frameFiltro1btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  qrDados.SQL.Clear;
+end;
+
+procedure TformDadosBase.frameBotoesLaterais1btnEditarClick(Sender: TObject);
+begin
+  inherited;
+  frameInsercaoECancelamento1.cbContinuarIncluindo.Checked := false;
+  frameInsercaoECancelamento1.cbContinuarIncluindo.Enabled := false;
+  pcPrincipal.ActivePage := tsEdit;
+  qrDados.Edit;
+end;
+
+procedure TformDadosBase.frameBotoesLaterais1btnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if MsgConfirmacao('Deseja realmente excluir este registro?') then
+      qrDados.Delete;
+  except
+    on E: Exception do
+    begin
+      if E.Message.Contains('FOREIGN KEY') then
+        MsgErro('Este dado está vinculado à outro registro. Certifique-se de'
+          + ' remover todas as dependências antes de excluí-lo')
+      else if E.Message.Contains('empty dataset') then
+        MsgErro('Não há nenhum registro para ser excluído!')
+      else
+        MsgErro('Evento inesperado: ' + E.Message);
+    end;
+  end;
+end;
+
+procedure TformDadosBase.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  try
+    if ValidarObrigatorios then
+    begin
+      if ContinuarIncluindo then
+      begin
+        qrDados.Post;
+        qrDados.Append;
+      end
+      else
+      begin
+        qrDados.Post;
+        pcPrincipal.ActivePage := tsGrid;
+      end;
+    end;
+  except
+    on E: Exception do
+    begin
+      if E.Message.Contains('UNIQUE KEY') then
+        MsgErro('Não é permitido registro duplicado!')
+      else if E.Message.Contains('FOREIGN KEY') then
+        MsgErro('Verifique se há dados existentes com os códigos informados!')
+      else
+        MsgErro('Evento inesperado: ' + E.Message);
+    end;
+  end;
+end;
+
+procedure TformDadosBase.frameInsercaoECancelamento1btnCancelarClick(
+  Sender: TObject);
+begin
+  inherited;
+  if msgConfirmacao('Deseja realmente cancelar os registros?') then
+  begin
+    qrDados.Cancel;
+    pcPrincipal.ActivePage := tsGrid;
+  end;
+end;
+
+function TformDadosBase.ValidarObrigatorios: boolean;
+begin
+  Result := True;
+end;
+
+procedure TformDadosBase.btnSairClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
+function TformDadosBase.ContinuarIncluindo: boolean;
+begin
+  if frameInsercaoECancelamento1.cbContinuarIncluindo.Checked then
+    Result := true
+  else
+    Result := false;
+end;
+
+procedure TformDadosBase.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  qrDados.Close;
+  formDadosBase := Nil;
+end;
+
+end.

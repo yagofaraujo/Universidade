@@ -23,7 +23,7 @@ object frameFiltro: TframeFiltro
     Top = 15
     Width = 257
     Height = 21
-    TabOrder = 0
+    TabOrder = 1
   end
   object btnFiltrar: TButton
     Left = 375
@@ -31,7 +31,7 @@ object frameFiltro: TframeFiltro
     Width = 75
     Height = 21
     Caption = 'Filtrar'
-    TabOrder = 1
+    TabOrder = 2
   end
   object cbBusca: TComboBox
     Left = 1
@@ -39,7 +39,7 @@ object frameFiltro: TframeFiltro
     Width = 89
     Height = 21
     Style = csDropDownList
-    TabOrder = 2
+    TabOrder = 0
     TextHint = 'Pesquisar por'
   end
 end

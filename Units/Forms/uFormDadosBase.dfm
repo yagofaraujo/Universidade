@@ -19,6 +19,7 @@ inherited formDadosBase: TformDadosBase
         Top = 0
         Width = 537
         Height = 230
+        TabStop = False
         Align = alClient
         DataSource = dsDados
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -87,6 +88,9 @@ inherited formDadosBase: TformDadosBase
             Top = 1
             ExplicitTop = 1
           end
+          inherited btnFiltrar: TButton
+            OnClick = frameFiltro1btnFiltrarClick
+          end
         end
       end
     end
@@ -100,7 +104,8 @@ inherited formDadosBase: TformDadosBase
         Height = 271
         Align = alRight
         BevelOuter = bvNone
-        TabOrder = 0
+        TabOrder = 1
+        TabStop = True
         inline frameInsercaoECancelamento1: TframeInsercaoECancelamento
           Left = 8
           Top = 8
@@ -124,6 +129,20 @@ inherited formDadosBase: TformDadosBase
             ExplicitTop = 70
           end
         end
+      end
+      object pnEditEdits: TPanel
+        Left = 0
+        Top = 0
+        Width = 507
+        Height = 271
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        TabStop = True
+        ExplicitLeft = 72
+        ExplicitTop = 69
+        ExplicitWidth = 185
+        ExplicitHeight = 41
       end
     end
   end

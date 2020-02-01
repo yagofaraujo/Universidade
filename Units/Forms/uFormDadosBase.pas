@@ -26,6 +26,7 @@ type
     pnEditBotoes: TPanel;
     frameInsercaoECancelamento1: TframeInsercaoECancelamento;
     btnSair: TButton;
+    pnEditEdits: TPanel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure frameBotoesLaterais1btnNovoClick(Sender: TObject);
@@ -34,12 +35,14 @@ type
     procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
     procedure frameInsercaoECancelamento1btnCancelarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure frameFiltro1btnFiltrarClick(Sender: TObject);
   private
     { Private declarations }
     procedure EsconderAbas;
     function ContinuarIncluindo : boolean;
   protected
     function ValidarObrigatorios: boolean; virtual;
+    procedure Filtrar; virtual; abstract;
   public
     { Public declarations }
   end;
@@ -74,6 +77,13 @@ begin
   frameInsercaoECancelamento1.cbContinuarIncluindo.Enabled := true;
   pcPrincipal.ActivePage := tsEdit;
   qrDados.Append;
+  pnEditEdits.SetFocus;
+end;
+
+procedure TformDadosBase.frameFiltro1btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  qrDados.SQL.Clear;
 end;
 
 procedure TformDadosBase.frameBotoesLaterais1btnEditarClick(Sender: TObject);
@@ -133,9 +143,7 @@ begin
       else
         MsgErro('Evento inesperado: ' + E.Message);
     end;
-
   end;
-
 end;
 
 procedure TformDadosBase.frameInsercaoECancelamento1btnCancelarClick(
