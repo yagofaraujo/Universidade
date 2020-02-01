@@ -42,7 +42,7 @@ type
     function ContinuarIncluindo : boolean;
   protected
     function ValidarObrigatorios: boolean; virtual;
-    procedure Filtrar; virtual; abstract;
+    procedure Filtrar; virtual;
   public
     { Public declarations }
   end;
@@ -157,11 +157,6 @@ begin
   end;
 end;
 
-function TformDadosBase.ValidarObrigatorios: boolean;
-begin
-  Result := True;
-end;
-
 procedure TformDadosBase.btnSairClick(Sender: TObject);
 begin
   inherited;
@@ -174,6 +169,34 @@ begin
     Result := true
   else
     Result := false;
+end;
+
+function TformDadosBase.ValidarObrigatorios: boolean;
+begin
+  Result := True;
+end;
+
+procedure TformDadosBase.Filtrar;
+begin
+  if (frameFiltro1.cbBusca.Text = '') or (frameFiltro1.cbBusca.Text = 'Nome') then
+  begin
+    try
+      qrDados.SQL.Add('AND UPPER(TRIM(NOME)) LIKE '
+                      + QuotedStr('%' + UpperCase(Trim(frameFiltro1.edPesquisa.Text))
+                      + '%'));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end
+  else if frameFiltro1.cbBusca.Text = ('CPF') then
+  begin
+    try
+      qrDados.SQL.Add('AND (TRIM(CPF)) = '
+                     + QuotedStr(Trim(frameFiltro1.edPesquisa.Text)));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end;
 end;
 
 procedure TformDadosBase.FormClose(Sender: TObject;

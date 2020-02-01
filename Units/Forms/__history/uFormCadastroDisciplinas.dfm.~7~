@@ -1,0 +1,66 @@
+inherited formCadastroDisciplinas: TformCadastroDisciplinas
+  Caption = 'Cadastro de Disciplinas'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pcPrincipal: TPageControl
+    inherited tsGrid: TTabSheet
+      ExplicitWidth = 627
+      ExplicitHeight = 271
+      inherited pnInferiorFiltro: TPanel
+        ExplicitTop = 230
+        ExplicitWidth = 627
+        inherited frameFiltro1: TframeFiltro
+          inherited cbBusca: TComboBox
+            Items.Strings = (
+              'Nome')
+          end
+        end
+      end
+    end
+    inherited tsEdit: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 627
+      ExplicitHeight = 271
+      inherited pnEditEdits: TPanel
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 507
+        ExplicitHeight = 271
+        object lblNome: TLabel
+          Left = 8
+          Top = 13
+          Width = 31
+          Height = 13
+          Caption = 'Nome:'
+          FocusControl = edNome
+        end
+        object edNome: TDBEdit
+          Left = 8
+          Top = 29
+          Width = 200
+          Height = 21
+          DataField = 'NOME'
+          DataSource = dsDados
+          TabOrder = 0
+        end
+      end
+    end
+  end
+  inherited qrDados: TFDQuery
+    SQL.Strings = (
+      'SELECT * FROM DISCIPLINAS')
+    object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object qrDadosNOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 100
+    end
+  end
+end

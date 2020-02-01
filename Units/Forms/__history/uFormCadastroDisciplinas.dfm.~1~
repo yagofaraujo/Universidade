@@ -1,0 +1,15 @@
+inherited formCadastroDisciplinas: TformCadastroDisciplinas
+  Caption = 'Cadastro de Disciplinas'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pcPrincipal: TPageControl
+    inherited tsGrid: TTabSheet
+      ExplicitWidth = 627
+      ExplicitHeight = 271
+      inherited pnInferiorFiltro: TPanel
+        ExplicitTop = 230
+        ExplicitWidth = 627
+      end
+    end
+  end
+end

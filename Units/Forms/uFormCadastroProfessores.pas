@@ -30,7 +30,7 @@ type
     { Private declarations }
   protected
     function ValidarObrigatorios: boolean; override;
-    procedure Filtrar; override;
+    procedure Filtrar;
   public
     { Public declarations }
   end;
@@ -54,25 +54,7 @@ end;
 
 procedure TformCadastroProfessores.Filtrar;
 begin
-  if (frameFiltro1.cbBusca.Text = '') or (frameFiltro1.cbBusca.Text = 'Nome') then
-  begin
-    try
-      qrDados.SQL.Add('AND UPPER(TRIM(NOME)) LIKE '
-                      + QuotedStr('%' + UpperCase(Trim(frameFiltro1.edPesquisa.Text))
-                      + '%'));
-    except
-      MsgErro('Houve um erro inesperado ao filtrar!');
-    end;
-  end
-  else if frameFiltro1.cbBusca.Text = ('CPF') then
-  begin
-    try
-      qrDados.SQL.Add('AND (TRIM(CPF)) = '
-                     + QuotedStr(Trim(frameFiltro1.edPesquisa.Text)));
-    except
-      MsgErro('Houve um erro inesperado ao filtrar!');
-    end;
-  end;
+  Inherited;
 end;
 
 function TformCadastroProfessores.ValidarObrigatorios: boolean;

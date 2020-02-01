@@ -10,7 +10,8 @@ uses
   uDmDados in 'Units\uDmDados.pas' {DmDados: TDataModule},
   uFrameConfirmarInsercao in 'Units\Frames\uFrameConfirmarInsercao.pas' {frameInsercaoECancelamento: TFrame},
   uFormCadastroProfessores in 'Units\Forms\uFormCadastroProfessores.pas' {formCadastroProfessores},
-  uBiblioteca in 'Units\uBiblioteca.pas';
+  uBiblioteca in 'Units\uBiblioteca.pas',
+  uFormCadastroDisciplinas in 'Units\Forms\uFormCadastroDisciplinas.pas' {formCadastroDisciplinas};
 
 {$R *.res}
 

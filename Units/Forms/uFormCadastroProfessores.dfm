@@ -3,13 +3,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
-    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
-      inherited pnGridBotoes: TPanel
-        inherited btnSair: TButton
-          OnClick = btnSairClick
-        end
-      end
       inherited pnInferiorFiltro: TPanel
         inherited frameFiltro1: TframeFiltro
           inherited cbBusca: TComboBox

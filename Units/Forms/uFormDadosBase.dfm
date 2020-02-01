@@ -139,10 +139,6 @@ inherited formDadosBase: TformDadosBase
         BevelOuter = bvNone
         TabOrder = 0
         TabStop = True
-        ExplicitLeft = 72
-        ExplicitTop = 69
-        ExplicitWidth = 185
-        ExplicitHeight = 41
       end
     end
   end
