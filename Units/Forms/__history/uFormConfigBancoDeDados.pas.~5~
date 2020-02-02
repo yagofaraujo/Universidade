@@ -1,0 +1,70 @@
+unit uFormConfigBancoDeDados;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, uBiblioteca,
+  uDmDados;
+
+type
+  TformConfigBancoDeDados = class(TForm)
+    Image1: TImage;
+    edLocalBD: TEdit;
+    btnLocalizar: TButton;
+    lblCaminhoBancoDeDados: TLabel;
+    btnSair: TButton;
+    AbrirPastas: TOpenDialog;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnLocalizarClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure ConfigurarBancoDeDados;
+  public
+    { Public declarations }
+  end;
+
+var
+  formConfigBancoDeDados: TformConfigBancoDeDados;
+
+implementation
+
+{$R *.dfm}
+
+procedure TformConfigBancoDeDados.btnLocalizarClick(Sender: TObject);
+begin
+  ConfigurarBancoDeDados;
+end;
+
+procedure TformConfigBancoDeDados.btnSairClick(Sender: TObject);
+begin
+  if Self.Owner.ClassNameIs('TDmDados') then
+    Application.Terminate
+  else if Self.Owner.ClassNameIs('TformPrincipal') then
+    Self.Close;
+end;
+
+procedure TformConfigBancoDeDados.ConfigurarBancoDeDados;
+Var
+  LocalArquivo: string;
+begin
+  if AbrirPastas.Execute then
+  begin
+    edLocalBD.Text := Abrirpastas.FileName;
+    LocalArquivo := ExtractFilePath(Application.ExeName) + 'SFA.ini';
+    SetarValorIni(LocalArquivo, 'CONFIGURACAO', 'LOCAL_DB', edLocalBD.Text);
+    MsgOK('Feito!');
+    Self.Close;
+  end;
+end;
+
+procedure TformConfigBancoDeDados.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  dmDados.VerificarBancoDeDados;
+  Action := caFree;
+  formConfigBancoDeDados := Nil;
+end;
+
+end.

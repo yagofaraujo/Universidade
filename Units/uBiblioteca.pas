@@ -2,10 +2,11 @@ unit uBiblioteca;
 
 interface
 Uses
-   Winapi.Windows, System.SysUtils, Vcl.Forms;
+   Winapi.Windows, System.SysUtils, Vcl.Forms, IniFiles;
 
 
-function EhNumero(Key: Char): boolean;
+procedure SetarValorIni(pLocal, pSessao, pSubSessao, pValor: string);
+function ReceberValorIni(pLocal, pSessao, pSubSessao: string): string;
 
 function MsgConfirmacao(pMensagem: string): boolean;
 function MsgErro(pMensagem: string): boolean;
@@ -13,11 +14,23 @@ function MsgOK(pMensagem: string): boolean;
 
 implementation
 
-function EhNumero(Key: Char): boolean;
+procedure SetarValorIni(pLocal, pSessao, pSubSessao, pValor: string);
+var
+  Arquivo: TIniFile;
 begin
-  Result := CharInSet(Key, ['0'..'9']);
+  Arquivo := TIniFile.Create(pLocal);
+  Arquivo.WriteString(pSessao, pSubSessao, pValor);
+  Arquivo.Free;
 end;
 
+function ReceberValorIni(pLocal, pSessao, pSubSessao: string): string;
+var
+  Arquivo: TIniFile;
+begin
+  Arquivo := TIniFile.Create(pLocal);
+  Result := Arquivo.ReadString(pSessao, pSubSessao, '');
+  Arquivo.Free;
+end;
 
 function MsgConfirmacao(pMensagem: string): boolean;
 begin

@@ -62,6 +62,7 @@ object formPrincipal: TformPrincipal
       Caption = 'Utilit'#225'rios'
       object Configurarbancodedados1: TMenuItem
         Caption = 'Configurar banco de dados'
+        OnClick = Configurarbancodedados1Click
       end
     end
   end

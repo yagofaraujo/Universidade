@@ -32,6 +32,7 @@ type
     procedure MovimentosMatriculasClick(Sender: TObject);
     procedure RelatoriosAlunosClick(Sender: TObject);
     procedure RelatorioListagemAlunoseProfessores1Click(Sender: TObject);
+    procedure Configurarbancodedados1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +46,7 @@ implementation
 
 {$R *.dfm}
 
-uses uFormDadosBase;
+uses uFormDadosBase, uFormConfigBancoDeDados;
 
 procedure TformPrincipal.CadastroProfessoresClick(Sender: TObject);
 begin
@@ -101,6 +102,14 @@ begin
     formRelatorioAlunos := TFormRelatorioAlunos.Create(Self);
 
   formRelatorioAlunos.rpAlunos.PreviewModal;
+end;
+
+procedure TformPrincipal.Configurarbancodedados1Click(Sender: TObject);
+begin
+  if formConfigBancoDeDados = nil then
+    formConfigBancoDeDados := TformConfigBancoDeDados.Create(Self);
+
+  formConfigBancoDeDados.ShowModal;
 end;
 
 procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

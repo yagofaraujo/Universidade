@@ -7,9 +7,7 @@ object DmDados: TDmDados
     Params.Strings = (
       'User_Name=SYSDBA'
       'Password=masterkey'
-      'Database=C:\Projetos\Universidade\Banco de dados\DB.FDB'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Left = 136
     Top = 24

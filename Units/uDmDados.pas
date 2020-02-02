@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-  FireDAC.Comp.DataSet;
+  FireDAC.Comp.DataSet, uBiblioteca, uFormConfigBancoDeDados, Vcl.Forms;
 
 type
   TDmDados = class(TDataModule)
@@ -24,6 +24,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure VerificarBancoDeDados;
   end;
 
 var
@@ -37,9 +38,31 @@ implementation
 
 procedure TDmDados.DataModuleCreate(Sender: TObject);
 begin
-  qrLkUpProfessor.Open;
-  qrLkUpAluno.Open;
-  qrLkUpDisciplina.Open;
+  VerificarBancoDeDados;
+//  qrLkUpProfessor.Open;
+//  qrLkUpAluno.Open;
+//  qrLkUpDisciplina.Open;
 end;
 
+procedure TDmDados.VerificarBancoDeDados;
+begin
+  try
+    fdConnection1.Params.Database := ReceberValorIni(ExtractFilePath(Application.ExeName)
+                                  + 'DB.ini', 'CONFIGURACAO', 'LOCAL_DB');
+    fdConnection1.Connected := true;
+  except
+    on E: Exception do
+    begin
+      if E.Message.Contains('is not a valid database') then
+      begin
+       if formConfigBancoDeDados = nil then
+        formConfigBancoDeDados := TformConfigBancoDeDados.Create(Self);
+
+      formConfigBancoDeDados.ShowModal
+      end
+      else
+        MsgErro('Evento inesperado: ' + E.Message);
+    end;
+  end;
+end;
 end.
