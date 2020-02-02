@@ -7,21 +7,22 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmDados, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, RLReport;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, RLReport,
+  Vcl.Imaging.pngimage;
 
 type
   TformRelatorioAlunos = class(TForm)
     rpAlunos: TRLReport;
-    bdTitulo: TRLBand;
+    bdCabecalho: TRLBand;
     rlLblRelatorioAlunos: TRLLabel;
     rlGpAlunos: TRLGroup;
     bdCabecalhoDados: TRLBand;
-    RLLabel2: TRLLabel;
-    RLLabel3: TRLLabel;
-    RLLabel4: TRLLabel;
-    RLLabel5: TRLLabel;
-    RLLabel6: TRLLabel;
-    RLLabel7: TRLLabel;
+    lblNome: TRLLabel;
+    lblDisciplina: TRLLabel;
+    lblNota1: TRLLabel;
+    lblNota2: TRLLabel;
+    lblNotaTrabalho: TRLLabel;
+    lblMedia: TRLLabel;
     bdDados: TRLBand;
     dbNome: TRLDBText;
     dbDisciplina: TRLDBText;
@@ -37,8 +38,10 @@ type
     qrDadosNOTA_2: TFloatField;
     qrDadosNOTA_TRABALHO: TFloatField;
     bdRodape: TRLBand;
-    RLDBText1: TRLDBText;
+    dbMedia: TRLDBText;
     qrDadosMEDIA: TFloatField;
+    imageLogo: TRLImage;
+    RLSystemInfo1: TRLSystemInfo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure rpAlunosBeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure rpAlunosPageEnding(Sender: TObject);

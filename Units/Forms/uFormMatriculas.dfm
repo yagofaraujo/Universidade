@@ -3,6 +3,7 @@ inherited formMatriculas: TformMatriculas
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
+    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
       ExplicitWidth = 627
       ExplicitHeight = 271
@@ -12,7 +13,6 @@ inherited formMatriculas: TformMatriculas
         inherited frameFiltro1: TframeFiltro
           inherited cbBusca: TComboBox
             Items.Strings = (
-              'Matr'#237'cula'
               'Aluno'
               'Disciplina')
           end
@@ -153,6 +153,7 @@ inherited formMatriculas: TformMatriculas
       DisplayLabel = 'Matr'#237'cula'
       FieldName = 'ID'
       ReadOnly = True
+      Visible = False
     end
     object qrDadosID_ALUNO: TIntegerField
       FieldName = 'ID_ALUNO'

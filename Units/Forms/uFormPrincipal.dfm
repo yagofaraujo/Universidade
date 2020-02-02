@@ -23,35 +23,39 @@ object formPrincipal: TformPrincipal
     Top = 128
     object Cadastros: TMenuItem
       Caption = 'Cadastros'
-      object Professores1: TMenuItem
+      object CadastroProfessores: TMenuItem
         Caption = 'Professores'
-        OnClick = Professores1Click
+        OnClick = CadastroProfessoresClick
       end
-      object Alunos1: TMenuItem
+      object CadastroAlunos: TMenuItem
         Caption = 'Alunos'
-        OnClick = Alunos1Click
+        OnClick = CadastroAlunosClick
       end
-      object Disciplinas1: TMenuItem
+      object CadastroDisciplinas: TMenuItem
         Caption = 'Disciplinas'
-        OnClick = Disciplinas1Click
+        OnClick = CadastroDisciplinasClick
       end
     end
     object Movimentos1: TMenuItem
       Caption = 'Movimentos'
-      object Matriculas1: TMenuItem
+      object MovimentosMatriculas: TMenuItem
         Caption = 'Matr'#237'culas'
-        OnClick = Matriculas1Click
+        OnClick = MovimentosMatriculasClick
       end
-      object AtribuirProfessoresADisciplinas1: TMenuItem
+      object MovimentosProfessoresDisciplinas: TMenuItem
         Caption = 'Atribuir professores '#224' disciplinas'
-        OnClick = AtribuirProfessoresADisciplinas1Click
+        OnClick = MovimentosProfessoresDisciplinasClick
       end
     end
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
-      object Alunos2: TMenuItem
+      object RelatoriosAlunos: TMenuItem
         Caption = 'Alunos'
-        OnClick = Alunos2Click
+        OnClick = RelatoriosAlunosClick
+      end
+      object RelatorioListagemAlunoseProfessores1: TMenuItem
+        Caption = 'Listagem Alunos e Professores'
+        OnClick = RelatorioListagemAlunoseProfessores1Click
       end
     end
     object Utilitrios1: TMenuItem

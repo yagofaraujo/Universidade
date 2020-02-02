@@ -7,29 +7,31 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDmDados,
   uFormCadastroProfessores, uFormCadastroDisciplinas, uFormBase,
   uFormCadastroAlunos, uFormAtribuirProfessoresDisciplinas, uFormMatriculas,
-  uFormRelatorioAlunos;
+  uFormRelatorioAlunos, uFormRelatorioAlunosEProfessores;
 
 type
   TformPrincipal = class(TForm)
     MainMenu1: TMainMenu;
     Cadastros: TMenuItem;
-    Professores1: TMenuItem;
+    CadastroProfessores: TMenuItem;
     Movimentos1: TMenuItem;
     Relatrios1: TMenuItem;
     Utilitrios1: TMenuItem;
-    Alunos1: TMenuItem;
-    Disciplinas1: TMenuItem;
-    AtribuirProfessoresADisciplinas1: TMenuItem;
+    CadastroAlunos: TMenuItem;
+    CadastroDisciplinas: TMenuItem;
+    MovimentosProfessoresDisciplinas: TMenuItem;
     Configurarbancodedados1: TMenuItem;
-    Matriculas1: TMenuItem;
-    Alunos2: TMenuItem;
+    MovimentosMatriculas: TMenuItem;
+    RelatoriosAlunos: TMenuItem;
+    RelatorioListagemAlunoseProfessores1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure Professores1Click(Sender: TObject);
-    procedure Disciplinas1Click(Sender: TObject);
-    procedure Alunos1Click(Sender: TObject);
-    procedure AtribuirProfessoresADisciplinas1Click(Sender: TObject);
-    procedure Matriculas1Click(Sender: TObject);
-    procedure Alunos2Click(Sender: TObject);
+    procedure CadastroProfessoresClick(Sender: TObject);
+    procedure CadastroDisciplinasClick(Sender: TObject);
+    procedure CadastroAlunosClick(Sender: TObject);
+    procedure MovimentosProfessoresDisciplinasClick(Sender: TObject);
+    procedure MovimentosMatriculasClick(Sender: TObject);
+    procedure RelatoriosAlunosClick(Sender: TObject);
+    procedure RelatorioListagemAlunoseProfessores1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +47,7 @@ implementation
 
 uses uFormDadosBase;
 
-procedure TformPrincipal.Professores1Click(Sender: TObject);
+procedure TformPrincipal.CadastroProfessoresClick(Sender: TObject);
 begin
   if formCadastroProfessores = nil then
     formCadastroProfessores := TformCadastroProfessores.Create(Self);
@@ -53,31 +55,15 @@ begin
   formCadastroProfessores.Show;
 end;
 
-procedure TformPrincipal.Alunos1Click(Sender: TObject);
+procedure TformPrincipal.CadastroAlunosClick(Sender: TObject);
 begin
-  if formCadastroAlunos = Nil then
+  if formCadastroAlunos = nil then
     formCadastroAlunos := TformCadastroAlunos.Create(Self);
 
   formCadastroAlunos.Show;
 end;
 
-procedure TformPrincipal.Alunos2Click(Sender: TObject);
-begin
-  if formRelatorioAlunos = nil then
-    formRelatorioAlunos := TFormRelatorioAlunos.Create(Self);
-
-  formRelatorioAlunos.rpAlunos.PreviewModal;
-end;
-
-procedure TformPrincipal.AtribuirProfessoresADisciplinas1Click(Sender: TObject);
-begin
-  if formAtribuirProfessoresDiscilplinas = Nil then
-    formAtribuirProfessoresDiscilplinas := TformAtribuirProfessoresDiscilplinas.Create(Self);
-
-  formAtribuirProfessoresDiscilplinas.Show;
-end;
-
-procedure TformPrincipal.Disciplinas1Click(Sender: TObject);
+procedure TformPrincipal.CadastroDisciplinasClick(Sender: TObject);
 begin
   if formCadastroDisciplinas = Nil then
     formCadastroDisciplinas := TFormCadastroDisciplinas.Create(Self);
@@ -85,12 +71,36 @@ begin
   formCadastroDisciplinas.Show;
 end;
 
-procedure TformPrincipal.Matriculas1Click(Sender: TObject);
+procedure TformPrincipal.MovimentosMatriculasClick(Sender: TObject);
 begin
   if formMatriculas = Nil then
     formMatriculas := TFormMatriculas.Create(Self);
 
   formMatriculas.Show;
+end;
+
+procedure TformPrincipal.MovimentosProfessoresDisciplinasClick(Sender: TObject);
+begin
+  if formAtribuirProfessoresDiscilplinas = Nil then
+    formAtribuirProfessoresDiscilplinas := TformAtribuirProfessoresDiscilplinas.Create(Self);
+
+  formAtribuirProfessoresDiscilplinas.Show;
+end;
+
+procedure TformPrincipal.RelatorioListagemAlunoseProfessores1Click(Sender: TObject);
+begin
+  if formRelatorioListagemAlunosEProfessores = nil then
+    formRelatorioListagemAlunosEProfessores := TFormRelatorioListagemAlunosEProfessores.Create(Self);
+
+  formRelatorioListagemAlunosEProfessores.rpListagemAlunosEProfessores.PreviewModal;
+end;
+
+procedure TformPrincipal.RelatoriosAlunosClick(Sender: TObject);
+begin
+  if formRelatorioAlunos = nil then
+    formRelatorioAlunos := TFormRelatorioAlunos.Create(Self);
+
+  formRelatorioAlunos.rpAlunos.PreviewModal;
 end;
 
 procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

@@ -3,7 +3,7 @@ inherited formAtribuirProfessoresDiscilplinas: TformAtribuirProfessoresDiscilpli
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
-    ActivePage = tsEdit
+    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
       ExplicitWidth = 627
       ExplicitHeight = 271
@@ -120,6 +120,7 @@ inherited formAtribuirProfessoresDiscilplinas: TformAtribuirProfessoresDiscilpli
       Visible = False
     end
     object qrDadosNOME_DISCIPLINA: TStringField
+      DisplayLabel = 'Disciplina'
       DisplayWidth = 40
       FieldKind = fkLookup
       FieldName = 'NOME_DISCIPLINA'

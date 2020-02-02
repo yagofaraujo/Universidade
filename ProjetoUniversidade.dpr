@@ -16,7 +16,8 @@ uses
   uFormAtribuirProfessoresDisciplinas in 'Units\Forms\uFormAtribuirProfessoresDisciplinas.pas' {formAtribuirProfessoresDiscilplinas},
   uFormMatriculas in 'Units\Forms\uFormMatriculas.pas' {formMatriculas},
   uFormConsultarAluno in 'Units\Forms\uFormConsultarAluno.pas' {formConsultarAluno},
-  uFormRelatorioAlunos in 'Units\Forms\uFormRelatorioAlunos.pas' {formRelatorioAlunos};
+  uFormRelatorioAlunos in 'Units\Forms\uFormRelatorioAlunos.pas' {formRelatorioAlunos},
+  uFormRelatorioAlunosEProfessores in 'Units\Forms\uFormRelatorioAlunosEProfessores.pas' {formRelatorioListagemAlunosEProfessores};
 
 {$R *.res}
 
@@ -26,5 +27,6 @@ begin
   Application.CreateForm(TformPrincipal, formPrincipal);
   Application.CreateForm(TDmDados, DmDados);
   Application.CreateForm(TformRelatorioAlunos, formRelatorioAlunos);
+  Application.CreateForm(TformRelatorioListagemAlunosEProfessores, formRelatorioListagemAlunosEProfessores);
   Application.Run;
 end.
