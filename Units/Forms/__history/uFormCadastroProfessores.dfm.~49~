@@ -1,14 +1,25 @@
-inherited formCadastroAlunos: TformCadastroAlunos
-  Caption = 'Cadastro de Alunos'
+inherited formCadastroProfessores: TformCadastroProfessores
+  Caption = 'Cadastro de Professores'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
+    inherited tsGrid: TTabSheet
+      inherited pnInferiorFiltro: TPanel
+        inherited frameFiltro1: TframeFiltro
+          inherited cbBusca: TComboBox
+            Items.Strings = (
+              'CPF'
+              'Nome')
+          end
+        end
+      end
+    end
     inherited tsEdit: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 627
-      ExplicitHeight = 271
+      inherited pnEditBotoes: TPanel
+        TabOrder = 0
+      end
       inherited pnEditEdits: TPanel
+        TabOrder = 1
         object lblCPF: TLabel
           Left = 3
           Top = 13
@@ -19,7 +30,7 @@ inherited formCadastroAlunos: TformCadastroAlunos
         end
         object lblNome: TLabel
           Left = 3
-          Top = 53
+          Top = 56
           Width = 31
           Height = 13
           Caption = 'Nome:'
@@ -27,7 +38,7 @@ inherited formCadastroAlunos: TformCadastroAlunos
         end
         object lblTelefone: TLabel
           Left = 3
-          Top = 93
+          Top = 96
           Width = 46
           Height = 13
           Caption = 'Telefone:'
@@ -65,17 +76,17 @@ inherited formCadastroAlunos: TformCadastroAlunos
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM ALUNOS')
+      'SELECT * FROM PROFESSOR')
     object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'
       ReadOnly = True
-      DisplayFormat = 'C'#243'digo'
     end
     object qrDadosCPF: TStringField
       FieldName = 'CPF'
       Origin = 'CPF'
       Required = True
-      EditMask = '000.000.000-00;0; '
+      EditMask = '999.999.999-99;0; '
       Size = 30
     end
     object qrDadosNOME: TStringField

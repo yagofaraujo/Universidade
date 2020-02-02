@@ -27,6 +27,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
     procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
+    procedure frameBotoesLaterais1btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -61,6 +62,13 @@ begin
 end;
 
 procedure TformCadastroProfessores.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpProfessor.Refresh;
+end;
+
+procedure TformCadastroProfessores.frameBotoesLaterais1btnExcluirClick(
   Sender: TObject);
 begin
   inherited;

@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, uFrameConfirmarInsercao,
   uFrameFiltro, uFrameBotoesCrud, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
-  Vcl.ComCtrls, uBiblioteca;
+  Vcl.ComCtrls, uBiblioteca, uDmDados;
 
 type
   TformCadastroAlunos = class(TformDadosBase)
@@ -26,6 +26,8 @@ type
     qrDadosID: TFDAutoIncField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
+    procedure frameBotoesLaterais1btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -39,16 +41,25 @@ var
   formCadastroAlunos: TformCadastroAlunos;
 
 implementation
+Const
+  SQL_BASE = 'SELECT ID, CPF, NOME, TELEFONE FROM ALUNO '
+           + 'WHERE 1 = 1 ';
 
 {$R *.dfm}
 
 { TformCadastroAlunos }
 
+procedure TformCadastroAlunos.frameBotoesLaterais1btnExcluirClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpAluno.Refresh;
+end;
+
 procedure TformCadastroAlunos.frameFiltro1btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  qrDados.SQL.Add('SELECT * FROM ALUNOS ');
-  qrDados.SQL.Add('WHERE 1 = 1 ');
+  qrDados.SQL.Text := SQL_BASE;
   if trim(frameFiltro1.edPesquisa.Text) <> '' then
     Filtrar;
   qrDados.Open;
@@ -57,6 +68,13 @@ end;
 procedure TformCadastroAlunos.Filtrar;
 begin
   inherited;
+end;
+
+procedure TformCadastroAlunos.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpAluno.Refresh;
 end;
 
 function TformCadastroAlunos.ValidarObrigatorios: boolean;
@@ -87,7 +105,6 @@ procedure TformCadastroAlunos.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  formCadastroAlunos := Nil;
+  formCadastroAlunos := nil;
 end;
-
 end.

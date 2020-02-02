@@ -4,7 +4,11 @@ inherited formCadastroAlunos: TformCadastroAlunos
   TextHeight = 13
   inherited pcPrincipal: TPageControl
     inherited tsGrid: TTabSheet
+      ExplicitWidth = 627
+      ExplicitHeight = 271
       inherited pnInferiorFiltro: TPanel
+        ExplicitTop = 230
+        ExplicitWidth = 627
         inherited frameFiltro1: TframeFiltro
           inherited cbBusca: TComboBox
             Items.Strings = (
@@ -76,17 +80,17 @@ inherited formCadastroAlunos: TformCadastroAlunos
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM ALUNOS')
+      'SELECT * FROM ALUNO')
     object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'
       ReadOnly = True
-      DisplayFormat = 'C'#243'digo'
     end
     object qrDadosCPF: TStringField
       FieldName = 'CPF'
       Origin = 'CPF'
       Required = True
-      EditMask = '000.000.000-00;0; '
+      EditMask = '999.999.999-99;0; '
       Size = 30
     end
     object qrDadosNOME: TStringField

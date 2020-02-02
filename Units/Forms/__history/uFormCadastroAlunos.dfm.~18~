@@ -1,12 +1,9 @@
-inherited formCadastroProfessores: TformCadastroProfessores
-  Caption = 'Cadastro de Professores'
+inherited formCadastroAlunos: TformCadastroAlunos
+  Caption = 'Cadastro de Alunos'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
-    ActivePage = tsEdit
     inherited tsGrid: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 627
       ExplicitHeight = 271
       inherited pnInferiorFiltro: TPanel
@@ -26,11 +23,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
       ExplicitTop = 24
       ExplicitWidth = 627
       ExplicitHeight = 271
-      inherited pnEditBotoes: TPanel
-        TabOrder = 0
-      end
       inherited pnEditEdits: TPanel
-        TabOrder = 1
         object lblCPF: TLabel
           Left = 3
           Top = 13
@@ -41,7 +34,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
         end
         object lblNome: TLabel
           Left = 3
-          Top = 56
+          Top = 53
           Width = 31
           Height = 13
           Caption = 'Nome:'
@@ -49,7 +42,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
         end
         object lblTelefone: TLabel
           Left = 3
-          Top = 96
+          Top = 93
           Width = 46
           Height = 13
           Caption = 'Telefone:'
@@ -87,8 +80,9 @@ inherited formCadastroProfessores: TformCadastroProfessores
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM PROFESSOR')
+      'SELECT * FROM ALUNO')
     object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'
       ReadOnly = True
     end

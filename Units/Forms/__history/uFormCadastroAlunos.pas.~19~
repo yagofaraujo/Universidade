@@ -1,4 +1,4 @@
-unit uFormCadastroProfessores;
+unit uFormCadastroAlunos;
 
 interface
 
@@ -7,13 +7,13 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFormDadosBase, Data.DB,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uFrameConfirmarInsercao, uFrameFiltro, uFrameBotoesCrud, Vcl.ExtCtrls,
-  Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  uBiblioteca;
+  FireDAC.Stan.Async, FireDAC.DApt, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uFrameConfirmarInsercao,
+  uFrameFiltro, uFrameBotoesCrud, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ComCtrls, uBiblioteca, uDmDados;
 
 type
-  TformCadastroProfessores = class(TformDadosBase)
+  TformCadastroAlunos = class(TformDadosBase)
     qrDadosCPF: TStringField;
     qrDadosNOME: TStringField;
     qrDadosTELEFONE: TStringField;
@@ -26,6 +26,7 @@ type
     qrDadosID: TFDAutoIncField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -36,28 +37,39 @@ type
   end;
 
 var
-  formCadastroProfessores: TformCadastroProfessores;
+  formCadastroAlunos: TformCadastroAlunos;
 
 implementation
+Const
+  SQL_BASE = 'SELECT ID, CPF, NOME, TELEFONE FROM ALUNO '
+           + 'WHERE 1 = 1 ';
 
 {$R *.dfm}
 
-procedure TformCadastroProfessores.frameFiltro1btnFiltrarClick(Sender: TObject);
+{ TformCadastroAlunos }
+
+procedure TformCadastroAlunos.frameFiltro1btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  qrDados.SQL.Add('SELECT * FROM PROFESSORES ');
-  qrDados.SQL.Add('WHERE 1 = 1 ');
+  qrDados.SQL.Text := SQL_BASE;
   if trim(frameFiltro1.edPesquisa.Text) <> '' then
     Filtrar;
   qrDados.Open;
 end;
 
-procedure TformCadastroProfessores.Filtrar;
+procedure TformCadastroAlunos.Filtrar;
 begin
-  Inherited;
+  inherited;
 end;
 
-function TformCadastroProfessores.ValidarObrigatorios: boolean;
+procedure TformCadastroAlunos.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpAluno.Refresh;
+end;
+
+function TformCadastroAlunos.ValidarObrigatorios: boolean;
 begin
   if (trim(edCPF.Text) = '') or (trim(edCPF.Text).Length < 11) then
   begin
@@ -81,11 +93,10 @@ begin
   Result := inherited ValidarObrigatorios;
 end;
 
-procedure TformCadastroProfessores.FormClose(Sender: TObject;
+procedure TformCadastroAlunos.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  formCadastroProfessores := Nil;
+  formCadastroAlunos := nil;
 end;
-
 end.

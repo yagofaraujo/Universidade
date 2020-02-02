@@ -23,10 +23,6 @@ inherited formCadastroDisciplinas: TformCadastroDisciplinas
       ExplicitWidth = 627
       ExplicitHeight = 271
       inherited pnEditEdits: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 507
-        ExplicitHeight = 271
         object lblNome: TLabel
           Left = 8
           Top = 13
@@ -49,7 +45,7 @@ inherited formCadastroDisciplinas: TformCadastroDisciplinas
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM DISCIPLINAS')
+      'SELECT * FROM DISCIPLINA')
     object qrDadosID: TFDAutoIncField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'

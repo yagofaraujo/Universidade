@@ -3,11 +3,18 @@ inherited formCadastroAlunos: TformCadastroAlunos
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
+    inherited tsGrid: TTabSheet
+      inherited pnInferiorFiltro: TPanel
+        inherited frameFiltro1: TframeFiltro
+          inherited cbBusca: TComboBox
+            Items.Strings = (
+              'CPF'
+              'Nome')
+          end
+        end
+      end
+    end
     inherited tsEdit: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 627
-      ExplicitHeight = 271
       inherited pnEditEdits: TPanel
         object lblCPF: TLabel
           Left = 3
@@ -65,17 +72,17 @@ inherited formCadastroAlunos: TformCadastroAlunos
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM ALUNOS')
+      'SELECT * FROM ALUNO')
     object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'
       ReadOnly = True
-      DisplayFormat = 'C'#243'digo'
     end
     object qrDadosCPF: TStringField
       FieldName = 'CPF'
       Origin = 'CPF'
       Required = True
-      EditMask = '000.000.000-00;0; '
+      EditMask = '999.999.999-99;0; '
       Size = 30
     end
     object qrDadosNOME: TStringField

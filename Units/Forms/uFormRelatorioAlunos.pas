@@ -73,6 +73,7 @@ Const
            + 'LEFT JOIN PROFESSOR_DISCIPLINA PD ON PD.ID_DISCIPLINA = D.ID '
            + 'LEFT JOIN PROFESSOR P ON P.ID = PD.ID_PROFESSOR '
            + 'WHERE 1 = 1 ';
+  MEDIA = 7;
 
 procedure TformRelatorioAlunos.rpAlunosBeforePrint(Sender: TObject;
   var PrintIt: Boolean);
@@ -85,9 +86,9 @@ begin
 
 
   if formFiltroRelatorioAlunos.cbAlunosAprovados.Checked then
-    qrDados.SQL.Add('AND M.MEDIA >= 7 ')
+    qrDados.SQL.Add('AND M.MEDIA >= ' + IntToStr(MEDIA))
   else if formFiltroRelatorioAlunos.cbAlunosReprovados.Checked then
-    qrDados.SQL.Add('AND M.MEDIA < 7 ');
+    qrDados.SQL.Add('AND M.MEDIA < ' + IntToStr(MEDIA));
 
   qrDados.SQL.Add('ORDER BY A.NOME ');
   qrDados.Open;

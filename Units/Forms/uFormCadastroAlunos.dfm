@@ -3,8 +3,13 @@ inherited formCadastroAlunos: TformCadastroAlunos
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
+    ActivePage = tsEdit
     inherited tsGrid: TTabSheet
+      ExplicitWidth = 627
+      ExplicitHeight = 271
       inherited pnInferiorFiltro: TPanel
+        ExplicitTop = 230
+        ExplicitWidth = 627
         inherited frameFiltro1: TframeFiltro
           inherited cbBusca: TComboBox
             Items.Strings = (
@@ -15,6 +20,10 @@ inherited formCadastroAlunos: TformCadastroAlunos
       end
     end
     inherited tsEdit: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 627
+      ExplicitHeight = 271
       inherited pnEditEdits: TPanel
         object lblCPF: TLabel
           Left = 3
