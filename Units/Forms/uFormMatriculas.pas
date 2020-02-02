@@ -76,6 +76,11 @@ begin
   qrDados.Open;
 end;
 
+procedure TformMatriculas.Filtrar;
+begin
+  Inherited;
+end;
+
 procedure TformMatriculas.frameInsercaoECancelamento1btnSalvarClick(
   Sender: TObject);
 begin
@@ -88,7 +93,23 @@ begin
     else
       VerificarSeContinuaIncluindo;
 
-    qrDados.Refresh;
+  qrDados.Refresh;
+end;
+
+function TformMatriculas.EstaMatriculado: boolean;
+begin
+  qrConsulta.Close;
+  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
+                         'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
+                         'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
+  qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edIdAluno.Text;
+  qrConsulta.ParamByName('ID_DISCIPLINA_MATRICULADA').AsString := edIdDisciplina.Text;
+  qrConsulta.Open;
+
+  if qrConsulta.IsEmpty then
+    Result := False
+  else
+    Result := True;;
 end;
 
 procedure TformMatriculas.VerificarSeContinuaIncluindo;
@@ -128,11 +149,6 @@ begin
   edNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
 end;
 
-procedure TformMatriculas.Filtrar;
-begin
-  Inherited;
-end;
-
 function TformMatriculas.ValidarObrigatorios: boolean;
 begin
   if (trim(edIdAluno.Text) = '') then
@@ -164,26 +180,9 @@ begin
   Result := inherited ValidarObrigatorios;
 end;
 
-function TformMatriculas.EstaMatriculado: boolean;
-begin
-  qrConsulta.Close;
-  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
-                         'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
-                         'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
-  qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edIdAluno.Text;
-  qrConsulta.ParamByName('ID_DISCIPLINA_MATRICULADA').AsString := edIdDisciplina.Text;
-  qrConsulta.Open;
-
-  if qrConsulta.IsEmpty then
-    Result := False
-  else
-    Result := True;;
-end;
-
 procedure TformMatriculas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
   formMatriculas := Nil;
 end;
-
 end.

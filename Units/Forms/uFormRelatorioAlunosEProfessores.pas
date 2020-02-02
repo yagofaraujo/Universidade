@@ -59,7 +59,6 @@ procedure TformRelatorioListagemAlunosEProfessores.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Action := caFree;
-  formRelatorioListagemAlunosEProfessores := Nil;
+  formRelatorioListagemAlunosEProfessores := nil;
 end;
-
 end.

@@ -55,16 +55,16 @@ begin
   qrDados.Open;
 end;
 
+procedure TformCadastroProfessores.Filtrar;
+begin
+  Inherited;
+end;
+
 procedure TformCadastroProfessores.frameInsercaoECancelamento1btnSalvarClick(
   Sender: TObject);
 begin
   inherited;
   DmDados.qrLkUpProfessor.Refresh;
-end;
-
-procedure TformCadastroProfessores.Filtrar;
-begin
-  Inherited;
 end;
 
 function TformCadastroProfessores.ValidarObrigatorios: boolean;
@@ -97,5 +97,4 @@ begin
   inherited;
   formCadastroProfessores := Nil;
 end;
-
 end.

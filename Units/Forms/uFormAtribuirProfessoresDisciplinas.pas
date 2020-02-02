@@ -58,6 +58,11 @@ begin
   qrDados.Open;
 end;
 
+procedure TformAtribuirProfessoresDiscilplinas.Filtrar;
+begin
+  inherited;
+end;
+
 function TformAtribuirProfessoresDiscilplinas.ValidarObrigatorios: boolean;
 begin
   if (trim(edIdProfessor.Text) = '') or (LkUpProfessor.Text = '')then
@@ -76,16 +81,10 @@ begin
   Result := inherited ValidarObrigatorios;
 end;
 
-procedure TformAtribuirProfessoresDiscilplinas.Filtrar;
-begin
-  inherited;
-end;
-
 procedure TformAtribuirProfessoresDiscilplinas.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  formAtribuirProfessoresDiscilplinas := Nil;
+  formAtribuirProfessoresDiscilplinas := nil;
 end;
-
 end.

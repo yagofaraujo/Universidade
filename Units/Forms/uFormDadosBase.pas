@@ -80,12 +80,6 @@ begin
   pnEditEdits.SetFocus;
 end;
 
-procedure TformDadosBase.frameFiltro1btnFiltrarClick(Sender: TObject);
-begin
-  inherited;
-  qrDados.SQL.Clear;
-end;
-
 procedure TformDadosBase.frameBotoesLaterais1btnEditarClick(Sender: TObject);
 begin
   inherited;
@@ -162,12 +156,6 @@ begin
   frameInsercaoECancelamento1.cbContinuarIncluindo.Checked := false;
 end;
 
-procedure TformDadosBase.btnSairClick(Sender: TObject);
-begin
-  inherited;
-  Self.Close;
-end;
-
 function TformDadosBase.ContinuarIncluindo: boolean;
 begin
   if frameInsercaoECancelamento1.cbContinuarIncluindo.Checked then
@@ -179,6 +167,18 @@ end;
 function TformDadosBase.ValidarObrigatorios: boolean;
 begin
   Result := True;
+end;
+
+procedure TformDadosBase.btnSairClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
+procedure TformDadosBase.frameFiltro1btnFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  qrDados.SQL.Clear;
 end;
 
 procedure TformDadosBase.Filtrar;
@@ -253,5 +253,4 @@ begin
   qrDados.Close;
   formDadosBase := Nil;
 end;
-
 end.

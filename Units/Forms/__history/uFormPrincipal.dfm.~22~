@@ -1,0 +1,73 @@
+object formPrincipal: TformPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Projeto Universidade'
+  ClientHeight = 299
+  ClientWidth = 635
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIForm
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesigned
+  WindowState = wsMaximized
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object MainMenu1: TMainMenu
+    Left = 560
+    Top = 128
+    object Cadastros: TMenuItem
+      Caption = 'Cadastros'
+      object CadastroProfessores: TMenuItem
+        Caption = 'Professores'
+        OnClick = CadastroProfessoresClick
+      end
+      object CadastroAlunos: TMenuItem
+        Caption = 'Alunos'
+        OnClick = CadastroAlunosClick
+      end
+      object CadastroDisciplinas: TMenuItem
+        Caption = 'Disciplinas'
+        OnClick = CadastroDisciplinasClick
+      end
+    end
+    object Movimentos1: TMenuItem
+      Caption = 'Movimentos'
+      object MovimentosMatriculas: TMenuItem
+        Caption = 'Matr'#237'culas'
+        OnClick = MovimentosMatriculasClick
+      end
+      object MovimentosProfessoresDisciplinas: TMenuItem
+        Caption = 'Atribuir professores '#224' disciplinas'
+        OnClick = MovimentosProfessoresDisciplinasClick
+      end
+    end
+    object Relatrios1: TMenuItem
+      Caption = 'Relat'#243'rios'
+      object RelatoriosAlunos: TMenuItem
+        Caption = 'Alunos'
+        OnClick = RelatoriosAlunosClick
+      end
+      object RelatorioListagemAlunoseProfessores1: TMenuItem
+        Caption = 'Listagem Alunos e Professores'
+        OnClick = RelatorioListagemAlunoseProfessores1Click
+      end
+    end
+    object Utilitrios1: TMenuItem
+      Caption = 'Utilit'#225'rios'
+      object Configurarbancodedados1: TMenuItem
+        Caption = 'Configurar banco de dados'
+        OnClick = Configurarbancodedados1Click
+      end
+    end
+    object Sair: TMenuItem
+      Caption = 'Sair'
+      OnClick = SairClick
+    end
+  end
+end

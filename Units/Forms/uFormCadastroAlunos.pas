@@ -57,16 +57,16 @@ begin
   qrDados.Open;
 end;
 
+procedure TformCadastroAlunos.Filtrar;
+begin
+  inherited;
+end;
+
 procedure TformCadastroAlunos.frameInsercaoECancelamento1btnSalvarClick(
   Sender: TObject);
 begin
   inherited;
   DmDados.qrLkUpAluno.Refresh;
-end;
-
-procedure TformCadastroAlunos.Filtrar;
-begin
-  inherited;
 end;
 
 function TformCadastroAlunos.ValidarObrigatorios: boolean;
@@ -97,7 +97,6 @@ procedure TformCadastroAlunos.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  formCadastroAlunos := Nil;
+  formCadastroAlunos := nil;
 end;
-
 end.

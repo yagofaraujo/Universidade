@@ -8,7 +8,7 @@ uses
   uFormCadastroProfessores, uFormCadastroDisciplinas, uFormBase,
   uFormCadastroAlunos, uFormAtribuirProfessoresDisciplinas, uFormMatriculas,
   uFormRelatorioAlunos, uFormRelatorioAlunosEProfessores,
-  uFormFiltroRelatorioAlunos;
+  uFormFiltroRelatorioAlunos, uBiblioteca;
 
 type
   TformPrincipal = class(TForm)
@@ -25,6 +25,7 @@ type
     MovimentosMatriculas: TMenuItem;
     RelatoriosAlunos: TMenuItem;
     RelatorioListagemAlunoseProfessores1: TMenuItem;
+    Sair: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CadastroProfessoresClick(Sender: TObject);
     procedure CadastroDisciplinasClick(Sender: TObject);
@@ -34,6 +35,7 @@ type
     procedure RelatoriosAlunosClick(Sender: TObject);
     procedure RelatorioListagemAlunoseProfessores1Click(Sender: TObject);
     procedure Configurarbancodedados1Click(Sender: TObject);
+    procedure SairClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,7 +69,7 @@ end;
 
 procedure TformPrincipal.CadastroDisciplinasClick(Sender: TObject);
 begin
-  if formCadastroDisciplinas = Nil then
+  if formCadastroDisciplinas = nil then
     formCadastroDisciplinas := TFormCadastroDisciplinas.Create(Self);
 
   formCadastroDisciplinas.Show;
@@ -75,7 +77,7 @@ end;
 
 procedure TformPrincipal.MovimentosMatriculasClick(Sender: TObject);
 begin
-  if formMatriculas = Nil then
+  if formMatriculas = nil then
     formMatriculas := TFormMatriculas.Create(Self);
 
   formMatriculas.Show;
@@ -83,7 +85,7 @@ end;
 
 procedure TformPrincipal.MovimentosProfessoresDisciplinasClick(Sender: TObject);
 begin
-  if formAtribuirProfessoresDiscilplinas = Nil then
+  if formAtribuirProfessoresDiscilplinas = nil then
     formAtribuirProfessoresDiscilplinas := TformAtribuirProfessoresDiscilplinas.Create(Self);
 
   formAtribuirProfessoresDiscilplinas.Show;
@@ -111,6 +113,12 @@ begin
     formConfigBancoDeDados := TformConfigBancoDeDados.Create(Self);
 
   formConfigBancoDeDados.ShowModal;
+end;
+
+procedure TformPrincipal.SairClick(Sender: TObject);
+begin
+  if MsgConfirmacao('Deseja realmente sair?') then
+    Application.Terminate;
 end;
 
 procedure TformPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

@@ -65,5 +65,9 @@ object formPrincipal: TformPrincipal
         OnClick = Configurarbancodedados1Click
       end
     end
+    object Sair: TMenuItem
+      Caption = 'Sair'
+      OnClick = SairClick
+    end
   end
 end

@@ -3,7 +3,6 @@ inherited formCadastroDisciplinas: TformCadastroDisciplinas
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
-    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
       ExplicitWidth = 627
       ExplicitHeight = 271

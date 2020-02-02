@@ -101,7 +101,6 @@ end;
 procedure TformRelatorioAlunos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
-  formRelatorioAlunos := Nil;
+  formRelatorioAlunos := nil;
 end;
-
 end.

@@ -49,6 +49,11 @@ begin
   qrDados.Open;
 end;
 
+procedure TformCadastroDisciplinas.Filtrar;
+begin
+  Inherited;
+end;
+
 procedure TformCadastroDisciplinas.frameInsercaoECancelamento1btnSalvarClick(
   Sender: TObject);
 begin
@@ -67,16 +72,10 @@ begin
   Result := inherited ValidarObrigatorios;
 end;
 
-procedure TformCadastroDisciplinas.Filtrar;
-begin
-  Inherited;
-end;
-
 procedure TformCadastroDisciplinas.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  formCadastroDisciplinas := Nil;
+  formCadastroDisciplinas := nil;
 end;
-
 end.

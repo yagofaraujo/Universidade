@@ -39,15 +39,6 @@ begin
   ConfigurarBancoDeDados;
 end;
 
-procedure TformConfigBancoDeDados.btnSairClick(Sender: TObject);
-begin
-  if Self.Owner.ClassNameIs('TDmDados') then
-    Application.Terminate
-  else if Self.Owner.ClassNameIs('TformPrincipal') or
-          Self.Owner.ClassNameIs('TApplication') then
-    Self.Close;
-end;
-
 procedure TformConfigBancoDeDados.ConfigurarBancoDeDados;
 Var
   LocalArquivo: string;
@@ -62,6 +53,15 @@ begin
   end;
 end;
 
+procedure TformConfigBancoDeDados.btnSairClick(Sender: TObject);
+begin
+  if Self.Owner.ClassNameIs('TDmDados') then
+    Application.Terminate
+  else if Self.Owner.ClassNameIs('TformPrincipal') or
+          Self.Owner.ClassNameIs('TApplication') then
+    Self.Close;
+end;
+
 procedure TformConfigBancoDeDados.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -69,5 +69,4 @@ begin
   Action := caFree;
   formConfigBancoDeDados := Nil;
 end;
-
 end.
