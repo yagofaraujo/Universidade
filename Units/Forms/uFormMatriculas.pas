@@ -22,26 +22,39 @@ type
     qrDadosID: TFDAutoIncField;
     qrDadosNOME_ALUNO: TStringField;
     qrDadosNOME_DISCIPLINA: TStringField;
-    lblNota1: TLabel;
-    edNota1: TDBEdit;
-    lblNota2: TLabel;
-    edNota2: TDBEdit;
-    lblNota3: TLabel;
-    edNotaTrabalho: TDBEdit;
     lblDisciplina: TLabel;
-    edIdDisciplina: TDBEdit;
+    edEditIdDisciplina: TDBEdit;
     lblAluno: TLabel;
-    edIdAluno: TDBEdit;
+    edEditIdAluno: TDBEdit;
     LkUpDisciplina: TDBLookupComboBox;
-    edNomeAluno: TEdit;
+    edEditNomeAluno: TEdit;
     btnConsultarAluno: TButton;
     qrConsulta: TFDQuery;
     qrDadosMEDIA: TFloatField;
+    tsNotas: TTabSheet;
+    pnNotasEdits: TPanel;
+    lblNotasNota1: TLabel;
+    lblNotasNota2: TLabel;
+    lblNotasNotaTrabalho: TLabel;
+    lblNotasDisciplina: TLabel;
+    lblNotasAluno: TLabel;
+    edNotasNota1: TDBEdit;
+    edNotasNota2: TDBEdit;
+    edNotasNotaTrabalho: TDBEdit;
+    edNotasNomeAluno: TEdit;
+    edNotasNomeDisciplina: TEdit;
+    btnNotas: TButton;
+    pnNotasBotoes: TPanel;
+    btnOk: TButton;
+    btnCancelar: TButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
-    procedure edIdAlunoExit(Sender: TObject);
+    procedure edEditIdAlunoExit(Sender: TObject);
     procedure btnConsultarAlunoClick(Sender: TObject);
     procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
+    procedure btnNotasClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnOkClick(Sender: TObject);
   private
     { Private declarations }
     procedure VerificarSeContinuaIncluindo;
@@ -85,15 +98,10 @@ procedure TformMatriculas.frameInsercaoECancelamento1btnSalvarClick(
   Sender: TObject);
 begin
   if ValidarObrigatorios then
-    if qrDados.State in [dsInsert] then
       if not EstaMatriculado then
         VerificarSeContinuaIncluindo
       else
         MsgErro('Este aluno já está matriculado nesta disciplina!')
-    else
-      VerificarSeContinuaIncluindo;
-
-  qrDados.Refresh;
 end;
 
 function TformMatriculas.EstaMatriculado: boolean;
@@ -102,8 +110,8 @@ begin
   qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
                          'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
                          'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
-  qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edIdAluno.Text;
-  qrConsulta.ParamByName('ID_DISCIPLINA_MATRICULADA').AsString := edIdDisciplina.Text;
+  qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edEditIdAluno.Text;
+  qrConsulta.ParamByName('ID_DISCIPLINA_MATRICULADA').AsString := edEditIdDisciplina.Text;
   qrConsulta.Open;
 
   if qrConsulta.IsEmpty then
@@ -117,9 +125,9 @@ begin
   if frameInsercaoECancelamento1.cbContinuarIncluindo.Checked then
   begin
     qrDados.Post;
+    edEditNomeAluno.Text := '';
     qrDados.Append;
-    edNomeAluno.Text := '';
-    pnEditEdits.SetFocus;
+    edEditIdAluno.SetFocus;
   end
   else
   begin
@@ -135,49 +143,68 @@ begin
   try
     if formConsultarAluno.ShowModal = mrOk then
     begin
-      edIdAluno.Text := formConsultarAluno.qrConsulta.FieldByName('ID').AsString;
-      edNomeAluno.Text := formConsultarAluno.qrConsulta.FieldByName('NOME').AsString;
+      edEditIdAluno.Text := formConsultarAluno.qrConsulta.FieldByName('ID').AsString;
+      edEditNomeAluno.Text := formConsultarAluno.qrConsulta.FieldByName('NOME').AsString;
     end;
   finally
     formConsultarAluno.Free;
   end;
 end;
 
-procedure TformMatriculas.edIdAlunoExit(Sender: TObject);
+procedure TformMatriculas.edEditIdAlunoExit(Sender: TObject);
 begin
   inherited;
-  edNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
+  edEditNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
 end;
 
 function TformMatriculas.ValidarObrigatorios: boolean;
 begin
-  if (trim(edIdAluno.Text) = '') then
+  if (trim(edEditIdAluno.Text) = '') then
   begin
     MsgErro('Selecione um Aluno');
-    edIdAluno.SetFocus;
+    edEditIdAluno.SetFocus;
     Exit(False);
   end
-  else if (trim(edIdDisciplina.Text) = '') or (LkUpDisciplina.Text = '')then
+  else if (trim(edEditIdDisciplina.Text) = '') or (LkUpDisciplina.Text = '')then
   begin
-    MsgErro('Selecione uma disciplina!');
-    edIdDisciplina.SetFocus;
+    MsgErro('Selecione uma disciplina válida!');
+    edEditIdDisciplina.SetFocus;
     Exit(False);
   end;
 
-  if trim(edNota1.Text) = '' then
-  begin
-    edNota1.Text := '0';
-  end;
-  if trim(edNota2.Text) = '' then
-  begin
-    edNota2.Text := '0';
-  end;
-  if trim(edNotaTrabalho.Text) = '' then
-  begin
-    edNotaTrabalho.Text := '0';
-  end;
+  qrDadosNOTA_1.AsFloat := 0.0;
+  qrDadosNOTA_2.AsFloat := 0.0;
+  qrDadosNOTA_TRABALHO.AsFloat := 0.0;
 
   Result := inherited ValidarObrigatorios;
+end;
+
+procedure TformMatriculas.btnNotasClick(Sender: TObject);
+begin
+  qrDados.Edit;
+
+  edNotasNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
+  edNotasNomeDisciplina.Text := qrDadosNOME_DISCIPLINA.AsString;
+
+  pcPrincipal.ActivePage := tsNotas;
+  edNotasNota1.SetFocus;
+end;
+
+procedure TformMatriculas.btnOkClick(Sender: TObject);
+begin
+  qrDados.Post;
+  pcPrincipal.ActivePage := tsGrid;
+  qrDados.Refresh;
+end;
+
+procedure TformMatriculas.btnCancelarClick(Sender: TObject);
+begin
+  if msgConfirmacao('Deseja realmente cancelar os registros?') then
+  begin
+    qrDados.Cancel;
+    pcPrincipal.ActivePage := tsGrid;
+    DBGrid.SetFocus;
+  end;
 end;
 
 procedure TformMatriculas.FormClose(Sender: TObject; var Action: TCloseAction);

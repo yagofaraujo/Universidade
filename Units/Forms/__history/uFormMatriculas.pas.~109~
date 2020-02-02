@@ -1,0 +1,191 @@
+unit uFormMatriculas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFormDadosBase, Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  uFrameConfirmarInsercao, uFrameFiltro, Vcl.StdCtrls, uFrameBotoesCrud,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, uDmDados, Vcl.DBCtrls,
+  Vcl.Mask, uFormConsultarAluno, uBiblioteca, uFormRelatorioAlunos;
+
+type
+  TformMatriculas = class(TformDadosBase)
+    qrDadosID_ALUNO: TIntegerField;
+    qrDadosID_DISCIPLINA: TIntegerField;
+    qrDadosNOTA_1: TFloatField;
+    qrDadosNOTA_2: TFloatField;
+    qrDadosNOTA_TRABALHO: TFloatField;
+    qrDadosID: TFDAutoIncField;
+    qrDadosNOME_ALUNO: TStringField;
+    qrDadosNOME_DISCIPLINA: TStringField;
+    lblDisciplina: TLabel;
+    edEditIdDisciplina: TDBEdit;
+    lblAluno: TLabel;
+    edEditIdAluno: TDBEdit;
+    LkUpDisciplina: TDBLookupComboBox;
+    edEditNomeAluno: TEdit;
+    btnConsultarAluno: TButton;
+    qrConsulta: TFDQuery;
+    qrDadosMEDIA: TFloatField;
+    tsNotas: TTabSheet;
+    pnNotasEdits: TPanel;
+    lblNotasNota1: TLabel;
+    lblNotasNota2: TLabel;
+    lblNotasNotaTrabalho: TLabel;
+    lblNotasDisciplina: TLabel;
+    lblNotasAluno: TLabel;
+    edNotasNota1: TDBEdit;
+    edNotasNota2: TDBEdit;
+    edNotasNotaTrabalho: TDBEdit;
+    edNotasNomeAluno: TEdit;
+    edNotasNomeDisciplina: TEdit;
+    btnNotas: TButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+    procedure edEditIdAlunoExit(Sender: TObject);
+    procedure btnConsultarAlunoClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
+    procedure btnNotasClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure VerificarSeContinuaIncluindo;
+  protected
+    function EstaMatriculado: boolean;
+    function ValidarObrigatorios: boolean; virtual;
+    procedure Filtrar; virtual;
+  public
+    { Public declarations }
+  end;
+
+var
+  formMatriculas: TformMatriculas;
+
+implementation
+Const
+  SQL_BASE = 'SELECT M.ID, M.ID_ALUNO, A.NOME AS ALUNO, M.ID_DISCIPLINA, '
+           + 'D.NOME AS DISCIPLINA, '
+           + 'M.NOTA_1, M.NOTA_2, M.NOTA_TRABALHO, M.MEDIA '
+           + 'FROM MATRICULA M '
+           + 'LEFT JOIN ALUNO A ON A.ID = M.ID_ALUNO '
+           + 'LEFT JOIN DISCIPLINA D ON D.ID = M.ID_DISCIPLINA '
+           + 'WHERE 1 = 1 ';
+
+{$R *.dfm}
+
+procedure TformMatriculas.btnNotasClick(Sender: TObject);
+begin
+  qrDados.Edit;
+  pcPrincipal.ActivePage := tsNotas;
+  edNotasNota1.SetFocus;
+end;
+
+procedure TformMatriculas.frameFiltro1btnFiltrarClick(Sender: TObject);
+begin
+  qrDados.SQL.Text := SQL_BASE;
+  if trim(frameFiltro1.edPesquisa.Text) <> '' then
+    Filtrar;
+  qrDados.Open;
+end;
+
+procedure TformMatriculas.Filtrar;
+begin
+  Inherited;
+end;
+
+procedure TformMatriculas.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  if ValidarObrigatorios then
+      if not EstaMatriculado then
+        VerificarSeContinuaIncluindo
+      else
+        MsgErro('Este aluno já está matriculado nesta disciplina!')
+end;
+
+function TformMatriculas.EstaMatriculado: boolean;
+begin
+  qrConsulta.Close;
+  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
+                         'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
+                         'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
+  qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edEditIdAluno.Text;
+  qrConsulta.ParamByName('ID_DISCIPLINA_MATRICULADA').AsString := edEditIdDisciplina.Text;
+  qrConsulta.Open;
+
+  if qrConsulta.IsEmpty then
+    Result := False
+  else
+    Result := True;;
+end;
+
+procedure TformMatriculas.VerificarSeContinuaIncluindo;
+begin
+  if frameInsercaoECancelamento1.cbContinuarIncluindo.Checked then
+  begin
+    qrDados.Post;
+    edEditNomeAluno.Text := '';
+    qrDados.Refresh;
+    qrDados.Append;
+    edEditIdAluno.SetFocus;
+  end
+  else
+  begin
+    qrDados.Post;
+    qrDados.Refresh;
+    pcPrincipal.ActivePage := tsGrid;
+  end
+end;
+
+procedure TformMatriculas.btnConsultarAlunoClick(Sender: TObject);
+begin
+  inherited;
+  formConsultarAluno := TFormConsultarAluno.Create(Self);
+  try
+    if formConsultarAluno.ShowModal = mrOk then
+    begin
+      edEditIdAluno.Text := formConsultarAluno.qrConsulta.FieldByName('ID').AsString;
+      edEditNomeAluno.Text := formConsultarAluno.qrConsulta.FieldByName('NOME').AsString;
+    end;
+  finally
+    formConsultarAluno.Free;
+  end;
+end;
+
+procedure TformMatriculas.edEditIdAlunoExit(Sender: TObject);
+begin
+  inherited;
+  edEditNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
+end;
+
+function TformMatriculas.ValidarObrigatorios: boolean;
+begin
+  if (trim(edEditIdAluno.Text) = '') then
+  begin
+    MsgErro('Selecione um Aluno');
+    edEditIdAluno.SetFocus;
+    Exit(False);
+  end
+  else if (trim(edEditIdDisciplina.Text) = '') or (LkUpDisciplina.Text = '')then
+  begin
+    MsgErro('Selecione uma disciplina válida!');
+    edEditIdDisciplina.SetFocus;
+    Exit(False);
+  end;
+
+  qrDadosNOTA_1.AsFloat := 0.0;
+  qrDadosNOTA_2.AsFloat := 0.0;
+  qrDadosNOTA_TRABALHO.AsFloat := 0.0;
+
+  Result := inherited ValidarObrigatorios;
+end;
+
+procedure TformMatriculas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  formMatriculas := Nil;
+end;
+end.
