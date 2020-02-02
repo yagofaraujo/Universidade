@@ -14,6 +14,7 @@ object formConsultarAluno: TformConsultarAluno
   FormStyle = fsMDIForm
   KeyPreview = True
   OldCreateOrder = True
+  Position = poOwnerFormCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,7 +25,6 @@ object formConsultarAluno: TformConsultarAluno
     Height = 57
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 304
     object lblConsulta: TLabel
       Left = 19
       Top = 8

@@ -12,6 +12,7 @@ object formConfigBancoDeDados: TformConfigBancoDeDados
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13

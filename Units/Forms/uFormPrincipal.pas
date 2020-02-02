@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDmDados,
   uFormCadastroProfessores, uFormCadastroDisciplinas, uFormBase,
   uFormCadastroAlunos, uFormAtribuirProfessoresDisciplinas, uFormMatriculas,
-  uFormRelatorioAlunos, uFormRelatorioAlunosEProfessores;
+  uFormRelatorioAlunos, uFormRelatorioAlunosEProfessores,
+  uFormFiltroRelatorioAlunos;
 
 type
   TformPrincipal = class(TForm)
@@ -98,10 +99,10 @@ end;
 
 procedure TformPrincipal.RelatoriosAlunosClick(Sender: TObject);
 begin
-  if formRelatorioAlunos = nil then
-    formRelatorioAlunos := TFormRelatorioAlunos.Create(Self);
+  if formFiltroRelatorioAlunos = nil then
+    formFiltroRelatorioAlunos := TformFiltroRelatorioAlunos.Create(Self);
 
-  formRelatorioAlunos.rpAlunos.PreviewModal;
+  formFiltroRelatorioAlunos.ShowModal;
 end;
 
 procedure TformPrincipal.Configurarbancodedados1Click(Sender: TObject);

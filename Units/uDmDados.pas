@@ -39,9 +39,6 @@ implementation
 procedure TDmDados.DataModuleCreate(Sender: TObject);
 begin
   VerificarBancoDeDados;
-//  qrLkUpProfessor.Open;
-//  qrLkUpAluno.Open;
-//  qrLkUpDisciplina.Open;
 end;
 
 procedure TDmDados.VerificarBancoDeDados;
@@ -50,6 +47,9 @@ begin
     fdConnection1.Params.Database := ReceberValorIni(ExtractFilePath(Application.ExeName)
                                   + 'DB.ini', 'CONFIGURACAO', 'LOCAL_DB');
     fdConnection1.Connected := true;
+    qrLkUpProfessor.Open;
+    qrLkUpAluno.Open;
+    qrLkUpDisciplina.Open;
   except
     on E: Exception do
     begin
@@ -65,4 +65,5 @@ begin
     end;
   end;
 end;
+
 end.

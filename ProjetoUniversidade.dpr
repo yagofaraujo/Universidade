@@ -18,7 +18,8 @@ uses
   uFormConsultarAluno in 'Units\Forms\uFormConsultarAluno.pas' {formConsultarAluno},
   uFormRelatorioAlunos in 'Units\Forms\uFormRelatorioAlunos.pas' {formRelatorioAlunos},
   uFormRelatorioAlunosEProfessores in 'Units\Forms\uFormRelatorioAlunosEProfessores.pas' {formRelatorioListagemAlunosEProfessores},
-  uFormConfigBancoDeDados in 'Units\Forms\uFormConfigBancoDeDados.pas' {formConfigBancoDeDados};
+  uFormConfigBancoDeDados in 'Units\Forms\uFormConfigBancoDeDados.pas' {formConfigBancoDeDados},
+  uFormFiltroRelatorioAlunos in 'Units\Forms\uFormFiltroRelatorioAlunos.pas' {formFiltroRelatorioAlunos};
 
 {$R *.res}
 
@@ -27,8 +28,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TformPrincipal, formPrincipal);
   Application.CreateForm(TDmDados, DmDados);
-  Application.CreateForm(TformRelatorioAlunos, formRelatorioAlunos);
-  Application.CreateForm(TformRelatorioListagemAlunosEProfessores, formRelatorioListagemAlunosEProfessores);
-  Application.CreateForm(TformConfigBancoDeDados, formConfigBancoDeDados);
+  Application.CreateForm(TformFiltroRelatorioAlunos, formFiltroRelatorioAlunos);
   Application.Run;
 end.

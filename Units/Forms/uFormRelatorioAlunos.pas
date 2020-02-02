@@ -58,9 +58,38 @@ implementation
 
 {$R *.dfm}
 
+uses uFormFiltroRelatorioAlunos;
+Const
+  SQL_BASE = 'SELECT M.ID, '
+           + 'A.NOME AS ALUNO, '
+           + 'D.NOME AS DISCIPLINA, '
+           + 'M.NOTA_1, '
+           + 'M.NOTA_2, '
+           + 'M.NOTA_TRABALHO, '
+           + 'M.MEDIA '
+           + 'FROM MATRICULA M '
+           + 'LEFT JOIN ALUNO A ON A.ID = M.ID_ALUNO '
+           + 'LEFT JOIN DISCIPLINA D ON D.ID = M.ID_DISCIPLINA '
+           + 'LEFT JOIN PROFESSOR_DISCIPLINA PD ON PD.ID_DISCIPLINA = D.ID '
+           + 'LEFT JOIN PROFESSOR P ON P.ID = PD.ID_PROFESSOR '
+           + 'WHERE 1 = 1 ';
+
 procedure TformRelatorioAlunos.rpAlunosBeforePrint(Sender: TObject;
   var PrintIt: Boolean);
 begin
+  qrDados.SQL.Text := SQL_BASE;
+
+  if Trim(formFiltroRelatorioAlunos.edIdAluno.Text) <> '' then
+    qrDados.SQL.Add('AND A.ID = ' +
+                           QuotedStr(formFiltroRelatorioAlunos.edIdAluno.Text));
+
+
+  if formFiltroRelatorioAlunos.cbAlunosAprovados.Checked then
+    qrDados.SQL.Add('AND M.MEDIA >= 7 ')
+  else if formFiltroRelatorioAlunos.cbAlunosReprovados.Checked then
+    qrDados.SQL.Add('AND M.MEDIA < 7 ');
+
+  qrDados.SQL.Add('ORDER BY A.NOME ');
   qrDados.Open;
 end;
 

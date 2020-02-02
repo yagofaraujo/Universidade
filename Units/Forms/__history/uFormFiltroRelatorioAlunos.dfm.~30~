@@ -1,0 +1,73 @@
+object formFiltroRelatorioAlunos: TformFiltroRelatorioAlunos
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Filtro de Alunos'
+  ClientHeight = 134
+  ClientWidth = 167
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lblAluno: TLabel
+    AlignWithMargins = True
+    Left = 5
+    Top = 3
+    Width = 31
+    Height = 13
+    Caption = 'Aluno:'
+  end
+  object btnConsultarAluno: TButton
+    AlignWithMargins = True
+    Left = 107
+    Top = 21
+    Width = 54
+    Height = 23
+    Caption = '...'
+    TabOrder = 0
+    OnClick = btnConsultarAlunoClick
+  end
+  object btnFiltrar: TButton
+    Left = 86
+    Top = 110
+    Width = 75
+    Height = 25
+    Caption = 'Filtrar'
+    TabOrder = 1
+    OnClick = btnFiltrarClick
+  end
+  object cbAlunosAprovados: TCheckBox
+    Left = 8
+    Top = 50
+    Width = 153
+    Height = 17
+    Caption = 'Somente alunos aprovados'
+    TabOrder = 2
+    OnMouseDown = cbAlunosAprovadosMouseDown
+  end
+  object cbAlunosReprovados: TCheckBox
+    Left = 8
+    Top = 73
+    Width = 151
+    Height = 17
+    Caption = 'Somente alunos reprovados'
+    TabOrder = 3
+    OnMouseDown = cbAlunosReprovadosMouseDown
+  end
+  object edIdAluno: TEdit
+    Left = 5
+    Top = 22
+    Width = 84
+    Height = 21
+    TabOrder = 4
+    TextHint = 'C'#243'digo do aluno'
+  end
+end
