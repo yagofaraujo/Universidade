@@ -45,7 +45,7 @@ procedure TDmDados.VerificarBancoDeDados;
 begin
   try
     fdConnection1.Params.Database := ReceberValorIni(ExtractFilePath(Application.ExeName)
-                                  + 'DB.ini', 'CONFIGURACAO', 'LOCAL_DB');
+                                  + 'UNI.ini', 'CONFIGURACAO', 'LOCAL_DB');
     fdConnection1.Connected := true;
     qrLkUpProfessor.Open;
     qrLkUpAluno.Open;

@@ -55,7 +55,7 @@ begin
   if AbrirPastas.Execute then
   begin
     edLocalBD.Text := Abrirpastas.FileName;
-    LocalArquivo := ExtractFilePath(Application.ExeName) + 'DB.ini';
+    LocalArquivo := ExtractFilePath(Application.ExeName) + 'UNI.ini';
     SetarValorIni(LocalArquivo, 'CONFIGURACAO', 'LOCAL_DB', edLocalBD.Text);
     MsgOK('Feito!');
     Self.Close;
