@@ -11,7 +11,12 @@ uses
   uFrameConfirmarInsercao in 'Units\Frames\uFrameConfirmarInsercao.pas' {frameInsercaoECancelamento: TFrame},
   uFormCadastroProfessores in 'Units\Forms\uFormCadastroProfessores.pas' {formCadastroProfessores},
   uBiblioteca in 'Units\uBiblioteca.pas',
-  uFormCadastroDisciplinas in 'Units\Forms\uFormCadastroDisciplinas.pas' {formCadastroDisciplinas};
+  uFormCadastroDisciplinas in 'Units\Forms\uFormCadastroDisciplinas.pas' {formCadastroDisciplinas},
+  uFormCadastroAlunos in 'Units\Forms\uFormCadastroAlunos.pas' {formCadastroAlunos},
+  uFormAtribuirProfessoresDisciplinas in 'Units\Forms\uFormAtribuirProfessoresDisciplinas.pas' {formAtribuirProfessoresDiscilplinas},
+  uFormMatriculas in 'Units\Forms\uFormMatriculas.pas' {formMatriculas},
+  uFormConsultarAluno in 'Units\Forms\uFormConsultarAluno.pas' {formConsultarAluno},
+  uFormRelatorioAlunos in 'Units\Forms\uFormRelatorioAlunos.pas' {formRelatorioAlunos};
 
 {$R *.res}
 
@@ -20,5 +25,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TformPrincipal, formPrincipal);
   Application.CreateForm(TDmDados, DmDados);
+  Application.CreateForm(TformRelatorioAlunos, formRelatorioAlunos);
   Application.Run;
 end.

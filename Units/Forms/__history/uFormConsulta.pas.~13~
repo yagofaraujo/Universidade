@@ -1,0 +1,65 @@
+unit uFormConsulta;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFormBase, uDmDados, Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
+
+type
+  TformConsulta = class(TForm)
+    pnSuperior: TPanel;
+    DBGrid1: TDBGrid;
+    edConsulta: TEdit;
+    lblConsulta: TLabel;
+    qrConsulta: TFDQuery;
+    dsConsulta: TDataSource;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure Consultar;
+  end;
+
+var
+  formConsulta: TformConsulta;
+
+implementation
+Const
+  SQL_BASE = 'SELECT * FROM ALUNO ';
+
+{$R *.dfm}
+
+procedure TformConsulta.FormShow(Sender: TObject);
+begin
+  inherited;
+  Consultar;
+end;
+
+procedure TformConsulta.Consultar;
+begin
+  qrConsulta.Close;
+  qrConsulta.SQL.Text := SQL_BASE;
+
+  if Trim(edConsulta.Text) <> '' then
+  begin
+    qrConsulta.SQL.Text := qrConsulta.SQL.Text +
+      'WHERE UPPER(NOME) LIKE ''%' + UpperCase(edConsulta.Text) + '%''';
+  end;
+
+  qrConsulta.Open;
+end;
+
+procedure TformConsulta.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  formConsulta := Nil;
+end;
+
+end.

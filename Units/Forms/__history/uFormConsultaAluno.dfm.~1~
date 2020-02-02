@@ -1,0 +1,72 @@
+object formConsulta: TformConsulta
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Consulta de Alunos'
+  ClientHeight = 261
+  ClientWidth = 284
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIForm
+  KeyPreview = True
+  OldCreateOrder = True
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnSuperior: TPanel
+    Left = 0
+    Top = 0
+    Width = 284
+    Height = 57
+    Align = alTop
+    TabOrder = 0
+    ExplicitWidth = 304
+    object lblConsulta: TLabel
+      Left = 19
+      Top = 8
+      Width = 50
+      Height = 13
+      Caption = 'Consultar:'
+    end
+    object edConsulta: TEdit
+      Left = 19
+      Top = 27
+      Width = 262
+      Height = 21
+      TabOrder = 0
+      OnKeyDown = edConsultaKeyDown
+    end
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 57
+    Width = 284
+    Height = 204
+    Align = alClient
+    DataSource = dsConsulta
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnDblClick = DBGrid1DblClick
+    OnKeyDown = DBGrid1KeyDown
+  end
+  object qrConsulta: TFDQuery
+    Connection = DmDados.FDConnection1
+    Left = 160
+    Top = 192
+  end
+  object dsConsulta: TDataSource
+    DataSet = qrConsulta
+    Left = 104
+    Top = 208
+  end
+end

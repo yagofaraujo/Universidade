@@ -21,17 +21,17 @@ end;
 
 function MsgConfirmacao(pMensagem: string): boolean;
 begin
-  Result := Application.MessageBox(PWideChar(pMensagem), 'Sistema Fortes Academy', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES;
+  Result := Application.MessageBox(PWideChar(pMensagem), 'F. University', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES;
 end;
 
 function MsgErro(pMensagem: string): boolean;
 begin
-  Result := Application.MessageBox(PWideChar(pMensagem), 'Sistema Fortes Academy', MB_OK + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES;
+  Result := Application.MessageBox(PWideChar(pMensagem), 'F. University', MB_OK + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES;
 end;
 
 function MsgOK(pMensagem: string): boolean;
 begin
-  Result := Application.MessageBox(PWideChar(pMensagem), 'Sistema Fortes Academy', MB_OK + MB_ICONINFORMATION + MB_DEFBUTTON1) = ID_YES;
+  Result := Application.MessageBox(PWideChar(pMensagem), 'F. University', MB_OK + MB_ICONINFORMATION + MB_DEFBUTTON1) = ID_YES;
 end;
 
 end.

@@ -22,7 +22,7 @@ type
     dsDados: TDataSource;
     tsGrid: TTabSheet;
     tsEdit: TTabSheet;
-    DBGrid1: TDBGrid;
+    DBGrid: TDBGrid;
     pnEditBotoes: TPanel;
     frameInsercaoECancelamento1: TframeInsercaoECancelamento;
     btnSair: TButton;
@@ -39,8 +39,8 @@ type
   private
     { Private declarations }
     procedure EsconderAbas;
-    function ContinuarIncluindo : boolean;
   protected
+    function ContinuarIncluindo : boolean; virtual;
     function ValidarObrigatorios: boolean; virtual;
     procedure Filtrar; virtual;
   public
@@ -93,6 +93,7 @@ begin
   frameInsercaoECancelamento1.cbContinuarIncluindo.Enabled := false;
   pcPrincipal.ActivePage := tsEdit;
   qrDados.Edit;
+  pnEditEdits.SetFocus;
 end;
 
 procedure TformDadosBase.frameBotoesLaterais1btnExcluirClick(Sender: TObject);
@@ -113,6 +114,7 @@ begin
         MsgErro('Evento inesperado: ' + E.Message);
     end;
   end;
+  DBGrid.SetFocus;
 end;
 
 procedure TformDadosBase.frameInsercaoECancelamento1btnSalvarClick(
@@ -126,6 +128,7 @@ begin
       begin
         qrDados.Post;
         qrDados.Append;
+        pnEditEdits.SetFocus;
       end
       else
       begin
@@ -137,7 +140,7 @@ begin
     on E: Exception do
     begin
       if E.Message.Contains('UNIQUE KEY') then
-        MsgErro('Não é permitido registro duplicado!')
+        MsgErro('Não é permitido inserir registros duplicados para valores únicos!')
       else if E.Message.Contains('FOREIGN KEY') then
         MsgErro('Verifique se há dados existentes com os códigos informados!')
       else
@@ -155,6 +158,7 @@ begin
     qrDados.Cancel;
     pcPrincipal.ActivePage := tsGrid;
   end;
+  frameInsercaoECancelamento1.cbContinuarIncluindo.Checked := false;
 end;
 
 procedure TformDadosBase.btnSairClick(Sender: TObject);
@@ -178,7 +182,10 @@ end;
 
 procedure TformDadosBase.Filtrar;
 begin
-  if (frameFiltro1.cbBusca.Text = '') or (frameFiltro1.cbBusca.Text = 'Nome') then
+  if (frameFiltro1.cbBusca.Text = '') then
+    frameFiltro1.cbBusca.ItemIndex := 0;
+
+  if (frameFiltro1.cbBusca.Text = 'Nome') then
   begin
     try
       qrDados.SQL.Add('AND UPPER(TRIM(NOME)) LIKE '
@@ -193,6 +200,45 @@ begin
     try
       qrDados.SQL.Add('AND (TRIM(CPF)) = '
                      + QuotedStr(Trim(frameFiltro1.edPesquisa.Text)));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end
+  else if frameFiltro1.cbBusca.Text = ('Matrícula') then
+  begin
+    try
+      qrDados.SQL.Add('AND (TRIM(M.ID)) = '
+                     + QuotedStr(Trim(frameFiltro1.edPesquisa.Text)));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end
+  else if (frameFiltro1.cbBusca.Text = 'Aluno') then
+  begin
+    try
+      qrDados.SQL.Add('AND UPPER(TRIM(A.NOME)) LIKE ' // P.NOME = Nome Professor
+                      + QuotedStr('%' + UpperCase(Trim(frameFiltro1.edPesquisa.Text))
+                      + '%'));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end
+  else if (frameFiltro1.cbBusca.Text = 'Professor') then
+  begin
+    try
+      qrDados.SQL.Add('AND UPPER(TRIM(P.NOME)) LIKE ' // P.NOME = Nome Professor
+                      + QuotedStr('%' + UpperCase(Trim(frameFiltro1.edPesquisa.Text))
+                      + '%'));
+    except
+      MsgErro('Houve um erro inesperado ao filtrar!');
+    end;
+  end
+  else if (frameFiltro1.cbBusca.Text = 'Disciplina') then
+  begin
+    try
+      qrDados.SQL.Add('AND UPPER(TRIM(D.NOME)) LIKE ' // D.NOME = Nome Disciplina
+                      + QuotedStr('%' + UpperCase(Trim(frameFiltro1.edPesquisa.Text))
+                      + '%'));
     except
       MsgErro('Houve um erro inesperado ao filtrar!');
     end;

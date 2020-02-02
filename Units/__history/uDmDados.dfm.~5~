@@ -1,0 +1,37 @@
+object DmDados: TDmDados
+  OldCreateOrder = False
+  Height = 255
+  Width = 334
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Database=C:\Projetos\Universidade\Banco de dados\DB.FDB'
+      'DriverID=FB')
+    Connected = True
+    LoginPrompt = False
+    Left = 136
+    Top = 24
+  end
+  object qrLookupProfessor: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM PROFESSOR')
+    Left = 24
+    Top = 144
+  end
+  object qrLookupAluno: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM ALUNO')
+    Left = 136
+    Top = 144
+  end
+  object qrLookupDisciplina: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM DISCIPLINA')
+    Left = 256
+    Top = 144
+  end
+end

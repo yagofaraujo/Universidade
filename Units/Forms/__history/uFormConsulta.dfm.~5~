@@ -1,0 +1,52 @@
+inherited formConsulta: TformConsulta
+  Caption = 'formConsulta'
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnSuperior: TPanel
+    Left = 0
+    Top = 0
+    Width = 635
+    Height = 57
+    Align = alTop
+    TabOrder = 0
+    object lblConsulta: TLabel
+      Left = 19
+      Top = 8
+      Width = 50
+      Height = 13
+      Caption = 'Consultar:'
+    end
+    object edConsulta: TEdit
+      Left = 19
+      Top = 27
+      Width = 262
+      Height = 21
+      TabOrder = 0
+    end
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 57
+    Width = 635
+    Height = 242
+    Align = alClient
+    DataSource = dsConsulta
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object qrConsulta: TFDQuery
+    Connection = DmDados.FDConnection1
+    Left = 344
+    Top = 176
+  end
+  object dsConsulta: TDataSource
+    DataSet = qrConsulta
+    Left = 432
+    Top = 176
+  end
+end

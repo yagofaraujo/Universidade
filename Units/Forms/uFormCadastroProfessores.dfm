@@ -3,6 +3,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
+    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
       inherited pnInferiorFiltro: TPanel
         inherited frameFiltro1: TframeFiltro
@@ -20,10 +21,6 @@ inherited formCadastroProfessores: TformCadastroProfessores
       end
       inherited pnEditEdits: TPanel
         TabOrder = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 507
-        ExplicitHeight = 271
         object lblCPF: TLabel
           Left = 3
           Top = 13
@@ -80,8 +77,9 @@ inherited formCadastroProfessores: TformCadastroProfessores
   end
   inherited qrDados: TFDQuery
     SQL.Strings = (
-      'SELECT * FROM PROFESSORES')
+      'SELECT * FROM PROFESSOR')
     object qrDadosID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'ID'
       ReadOnly = True
     end
@@ -89,7 +87,7 @@ inherited formCadastroProfessores: TformCadastroProfessores
       FieldName = 'CPF'
       Origin = 'CPF'
       Required = True
-      EditMask = '000.000.000-00;0; '
+      EditMask = '999.999.999-99;0; '
       Size = 30
     end
     object qrDadosNOME: TStringField

@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   uFrameConfirmarInsercao, uFrameFiltro, Vcl.StdCtrls, uFrameBotoesCrud,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.Mask, Vcl.DBCtrls,
-  uBiblioteca;
+  uBiblioteca, uDmDados;
 
 type
   TformCadastroDisciplinas = class(TformDadosBase)
@@ -20,6 +20,7 @@ type
     edNome: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -33,17 +34,26 @@ var
   formCadastroDisciplinas: TformCadastroDisciplinas;
 
 implementation
+Const
+  SQL_BASE = 'SELECT ID, NOME FROM DISCIPLINA '
+           + 'WHERE 1 = 1 ';
 
 {$R *.dfm}
 
 procedure TformCadastroDisciplinas.frameFiltro1btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  qrDados.SQL.Add('SELECT * FROM DISCIPLINAS ');
-  qrDados.SQL.Add('WHERE 1 = 1 ');
+  qrDados.SQL.Text := SQL_BASE;
   if trim(frameFiltro1.edPesquisa.Text) <> '' then
     Filtrar;
   qrDados.Open;
+end;
+
+procedure TformCadastroDisciplinas.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpDisciplina.Refresh;
 end;
 
 function TformCadastroDisciplinas.ValidarObrigatorios: boolean;

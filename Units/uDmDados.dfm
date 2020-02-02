@@ -1,7 +1,8 @@
 object DmDados: TDmDados
   OldCreateOrder = False
-  Height = 150
-  Width = 215
+  OnCreate = DataModuleCreate
+  Height = 255
+  Width = 334
   object FDConnection1: TFDConnection
     Params.Strings = (
       'User_Name=SYSDBA'
@@ -10,7 +11,43 @@ object DmDados: TDmDados
       'DriverID=FB')
     Connected = True
     LoginPrompt = False
-    Left = 40
+    Left = 136
     Top = 24
+  end
+  object qrLkUpProfessor: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM PROFESSOR')
+    Left = 24
+    Top = 144
+  end
+  object qrLkUpAluno: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM ALUNO')
+    Left = 136
+    Top = 144
+  end
+  object qrLkUpDisciplina: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM DISCIPLINA')
+    Left = 256
+    Top = 144
+  end
+  object dsLkUpProfessor: TDataSource
+    DataSet = qrLkUpProfessor
+    Left = 24
+    Top = 200
+  end
+  object dsLkUpAluno: TDataSource
+    DataSet = qrLkUpAluno
+    Left = 136
+    Top = 200
+  end
+  object dsLkUpDisciplina: TDataSource
+    DataSet = qrLkUpDisciplina
+    Left = 256
+    Top = 192
   end
 end

@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   uFrameConfirmarInsercao, uFrameFiltro, uFrameBotoesCrud, Vcl.ExtCtrls,
   Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
-  uBiblioteca;
+  uBiblioteca, uDmDados;
 
 type
   TformCadastroProfessores = class(TformDadosBase)
@@ -26,6 +26,7 @@ type
     qrDadosID: TFDAutoIncField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure frameFiltro1btnFiltrarClick(Sender: TObject);
+    procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   protected
@@ -39,17 +40,26 @@ var
   formCadastroProfessores: TformCadastroProfessores;
 
 implementation
+Const
+  SQL_BASE = 'SELECT ID, CPF, NOME, TELEFONE FROM PROFESSOR '
+           + 'WHERE 1 = 1';
 
 {$R *.dfm}
 
 procedure TformCadastroProfessores.frameFiltro1btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  qrDados.SQL.Add('SELECT * FROM PROFESSORES ');
-  qrDados.SQL.Add('WHERE 1 = 1 ');
+  qrDados.SQL.Text := SQL_BASE;
   if trim(frameFiltro1.edPesquisa.Text) <> '' then
     Filtrar;
   qrDados.Open;
+end;
+
+procedure TformCadastroProfessores.frameInsercaoECancelamento1btnSalvarClick(
+  Sender: TObject);
+begin
+  inherited;
+  DmDados.qrLkUpProfessor.Refresh;
 end;
 
 procedure TformCadastroProfessores.Filtrar;
@@ -70,7 +80,14 @@ begin
     MsgErro('Digite um nome válido!');
     edNome.SetFocus;
     Exit(False);
+  end
+  else if (trim(edTelefone.Text) = '') or (trim(edTelefone.Text).Length < 10) then
+  begin
+    MsgErro('Digite um telefone válido');
+    edTelefone.SetFocus;
+    Exit(False);
   end;
+
   Result := inherited ValidarObrigatorios;
 end;
 
