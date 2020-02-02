@@ -9,11 +9,13 @@ inherited formDadosBase: TformDadosBase
     Top = 0
     Width = 635
     Height = 299
-    ActivePage = tsGrid
+    ActivePage = tsEdit
     Align = alClient
     TabOrder = 0
     object tsGrid: TTabSheet
       Caption = 'tsGrid'
+      ExplicitWidth = 296
+      ExplicitHeight = 173
       object DBGrid: TDBGrid
         Left = 0
         Top = 0
@@ -76,6 +78,8 @@ inherited formDadosBase: TformDadosBase
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 2
+        ExplicitTop = 132
+        ExplicitWidth = 296
         inline frameFiltro1: TframeFiltro
           Left = 2
           Top = 1

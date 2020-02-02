@@ -54,6 +54,7 @@ type
     procedure frameInsercaoECancelamento1btnSalvarClick(Sender: TObject);
     procedure btnNotasClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure btnOkClick(Sender: TObject);
   private
     { Private declarations }
     procedure VerificarSeContinuaIncluindo;
@@ -79,17 +80,6 @@ Const
            + 'WHERE 1 = 1 ';
 
 {$R *.dfm}
-
-procedure TformMatriculas.btnNotasClick(Sender: TObject);
-begin
-  qrDados.Edit;
-
-  edNotasNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
-  edNotasNomeDisciplina.Text := qrDadosNOME_DISCIPLINA.AsString;
-
-  pcPrincipal.ActivePage := tsNotas;
-  edNotasNota1.SetFocus;
-end;
 
 procedure TformMatriculas.frameFiltro1btnFiltrarClick(Sender: TObject);
 begin
@@ -117,7 +107,8 @@ end;
 function TformMatriculas.EstaMatriculado: boolean;
 begin
   qrConsulta.Close;
-  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
+  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA ' +
+                         'FROM MATRICULA ' +
                          'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
                          'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
   qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edEditIdAluno.Text;
@@ -136,26 +127,15 @@ begin
   begin
     qrDados.Post;
     edEditNomeAluno.Text := '';
-    qrDados.Refresh;
     qrDados.Append;
     edEditIdAluno.SetFocus;
   end
   else
   begin
     qrDados.Post;
+    pcPrincipal.ActivePage := tsGrid;
     qrDados.Refresh;
-    pcPrincipal.ActivePage := tsGrid;
   end
-end;
-
-procedure TformMatriculas.btnCancelarClick(Sender: TObject);
-begin
-  if msgConfirmacao('Deseja realmente cancelar os registros?') then
-  begin
-    qrDados.Cancel;
-    pcPrincipal.ActivePage := tsGrid;
-    DBGrid.SetFocus;
-  end;
 end;
 
 procedure TformMatriculas.btnConsultarAlunoClick(Sender: TObject);
@@ -201,9 +181,37 @@ begin
   Result := inherited ValidarObrigatorios;
 end;
 
+procedure TformMatriculas.btnNotasClick(Sender: TObject);
+begin
+  qrDados.Edit;
+
+  edNotasNomeAluno.Text := qrDadosNOME_ALUNO.AsString;
+  edNotasNomeDisciplina.Text := qrDadosNOME_DISCIPLINA.AsString;
+
+  pcPrincipal.ActivePage := tsNotas;
+  edNotasNota1.SetFocus;
+end;
+
+procedure TformMatriculas.btnOkClick(Sender: TObject);
+begin
+  qrDados.Post;
+  pcPrincipal.ActivePage := tsGrid;
+  qrDados.Refresh;
+end;
+
+procedure TformMatriculas.btnCancelarClick(Sender: TObject);
+begin
+  if msgConfirmacao('Deseja realmente cancelar os registros?') then
+  begin
+    qrDados.Cancel;
+    pcPrincipal.ActivePage := tsGrid;
+    DBGrid.SetFocus;
+  end;
+end;
+
 procedure TformMatriculas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
-  formMatriculas := Nil;
+  formMatriculas := nil;
 end;
 end.

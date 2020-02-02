@@ -134,8 +134,8 @@ begin
     on E: Exception do
     begin
       if E.Message.Contains('UNIQUE KEY') then
-        MsgErro('Não é permitido inserir registros duplicados ou atribuir ' +
-                'mais de uma disciplina para um professor!')
+        MsgErro('Não é permitido inserir registros duplicados ou ' +
+                'atribuir mais de um professor para uma disciplina!')
       else if E.Message.Contains('FOREIGN KEY') then
         MsgErro('Verifique se há dados existentes com os códigos informados!')
       else

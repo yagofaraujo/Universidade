@@ -107,7 +107,8 @@ end;
 function TformMatriculas.EstaMatriculado: boolean;
 begin
   qrConsulta.Close;
-  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA FROM MATRICULA ' +
+  qrConsulta.SQL.Text := 'SELECT ID, ID_ALUNO, ID_DISCIPLINA ' +
+                         'FROM MATRICULA ' +
                          'WHERE ID_ALUNO = :ID_ALUNO_MATRICULADO ' +
                          'AND ID_DISCIPLINA = :ID_DISCIPLINA_MATRICULADA';
   qrConsulta.ParamByName('ID_ALUNO_MATRICULADO').AsString := edEditIdAluno.Text;
@@ -125,6 +126,7 @@ begin
   if frameInsercaoECancelamento1.cbContinuarIncluindo.Checked then
   begin
     qrDados.Post;
+    qrDados.Refresh;
     edEditNomeAluno.Text := '';
     qrDados.Append;
     edEditIdAluno.SetFocus;
@@ -132,6 +134,7 @@ begin
   else
   begin
     qrDados.Post;
+    qrDados.Refresh;
     pcPrincipal.ActivePage := tsGrid;
   end
 end;
