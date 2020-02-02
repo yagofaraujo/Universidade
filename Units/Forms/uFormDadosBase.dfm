@@ -9,7 +9,7 @@ inherited formDadosBase: TformDadosBase
     Top = 0
     Width = 635
     Height = 299
-    ActivePage = tsGrid
+    ActivePage = tsEdit
     Align = alClient
     TabOrder = 0
     object tsGrid: TTabSheet

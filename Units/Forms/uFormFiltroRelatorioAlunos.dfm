@@ -21,9 +21,9 @@ object formFiltroRelatorioAlunos: TformFiltroRelatorioAlunos
     AlignWithMargins = True
     Left = 5
     Top = 3
-    Width = 31
+    Width = 67
     Height = 13
-    Caption = 'Aluno:'
+    Caption = 'C'#243'digo Aluno:'
   end
   object btnConsultarAluno: TButton
     AlignWithMargins = True
@@ -67,6 +67,7 @@ object formFiltroRelatorioAlunos: TformFiltroRelatorioAlunos
     Top = 22
     Width = 84
     Height = 21
+    NumbersOnly = True
     TabOrder = 4
     TextHint = 'C'#243'digo do aluno'
   end

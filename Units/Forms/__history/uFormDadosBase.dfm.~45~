@@ -30,7 +30,6 @@ inherited formDadosBase: TformDadosBase
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnTitleClick = DBGridTitleClick
       end
       object pnGridBotoes: TPanel
         Left = 537

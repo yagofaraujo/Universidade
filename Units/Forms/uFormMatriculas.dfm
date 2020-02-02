@@ -3,8 +3,9 @@ inherited formMatriculas: TformMatriculas
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcPrincipal: TPageControl
-    ActivePage = tsGrid
     inherited tsGrid: TTabSheet
+      ExplicitWidth = 627
+      ExplicitHeight = 271
       inherited pnGridBotoes: TPanel
         inherited btnSair: TButton
           Top = 216
@@ -21,6 +22,8 @@ inherited formMatriculas: TformMatriculas
         end
       end
       inherited pnInferiorFiltro: TPanel
+        ExplicitTop = 230
+        ExplicitWidth = 627
         inherited frameFiltro1: TframeFiltro
           inherited cbBusca: TComboBox
             Items.Strings = (
@@ -31,6 +34,10 @@ inherited formMatriculas: TformMatriculas
       end
     end
     inherited tsEdit: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 627
+      ExplicitHeight = 271
       inherited pnEditEdits: TPanel
         object lblDisciplina: TLabel
           Left = 7
@@ -109,7 +116,6 @@ inherited formMatriculas: TformMatriculas
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 507
         object lblNotasNota1: TLabel
           Left = 7
           Top = 113
@@ -155,6 +161,7 @@ inherited formMatriculas: TformMatriculas
           Height = 21
           DataField = 'NOTA_1'
           DataSource = dsDados
+          MaxLength = 3
           TabOrder = 0
         end
         object edNotasNota2: TDBEdit
@@ -164,6 +171,7 @@ inherited formMatriculas: TformMatriculas
           Height = 21
           DataField = 'NOTA_2'
           DataSource = dsDados
+          MaxLength = 3
           TabOrder = 1
         end
         object edNotasNotaTrabalho: TDBEdit
@@ -173,6 +181,7 @@ inherited formMatriculas: TformMatriculas
           Height = 21
           DataField = 'NOTA_TRABALHO'
           DataSource = dsDados
+          MaxLength = 3
           TabOrder = 2
         end
         object edNotasNomeAluno: TEdit
@@ -273,16 +282,19 @@ inherited formMatriculas: TformMatriculas
       DisplayLabel = 'Nota primeiro per'#237'odo'
       FieldName = 'NOTA_1'
       Origin = 'NOTA_1'
+      DisplayFormat = ',0.0'
     end
     object qrDadosNOTA_2: TFloatField
       DisplayLabel = 'Nota segundo per'#237'odo'
       FieldName = 'NOTA_2'
       Origin = 'NOTA_2'
+      DisplayFormat = ',0.0'
     end
     object qrDadosNOTA_TRABALHO: TFloatField
       DisplayLabel = 'Nota de trabalho'
       FieldName = 'NOTA_TRABALHO'
       Origin = 'NOTA_TRABALHO'
+      DisplayFormat = ',0.0'
     end
     object qrDadosMEDIA: TFloatField
       DisplayLabel = 'M'#233'dia'
@@ -293,7 +305,7 @@ inherited formMatriculas: TformMatriculas
   end
   object qrConsulta: TFDQuery
     Connection = DmDados.FDConnection1
-    Left = 512
-    Top = 256
+    Left = 504
+    Top = 248
   end
 end

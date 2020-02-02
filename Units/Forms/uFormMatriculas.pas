@@ -210,6 +210,6 @@ end;
 procedure TformMatriculas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
-  formMatriculas := Nil;
+  formMatriculas := nil;
 end;
 end.

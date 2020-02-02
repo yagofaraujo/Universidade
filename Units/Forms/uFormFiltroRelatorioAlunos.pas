@@ -50,10 +50,13 @@ end;
 
 procedure TformFiltroRelatorioAlunos.btnFiltrarClick(Sender: TObject);
 begin
-  if formRelatorioAlunos = nil then
+  try
     formRelatorioAlunos := TformRelatorioAlunos.Create(Self);
+    formRelatorioAlunos.rpAlunos.PreviewModal;
+  finally
+    formRelatorioAlunos.Free;
+  end;
 
-  formRelatorioAlunos.rpAlunos.PreviewModal;
 end;
 
 procedure TformFiltroRelatorioAlunos.cbAlunosAprovadosMouseDown(Sender: TObject;
